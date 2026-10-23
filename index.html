@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SENVA 深维 — Own the Edge.</title>
+<meta name="description" content="SENVA (深维) is a fictional Shenzhen luxury house for personal intelligence instruments. A speculative brand concept for a design project.">
+<meta name="theme-color" content="#0C0E12">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@200;300;400;500&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--obs:#0C0E12;--ox:#4C2334;--plum:#241C29;--plat:#C2C7CD;--porc:#F1EEE8;--ice:#91A4B8;--oxl:#8B4A63;
+--sans:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;--serif:"Newsreader","Iowan Old Style",Georgia,serif;--cjk:"PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px;background:var(--obs)}
+body{background:var(--obs);color:var(--porc);font-family:var(--sans);font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body.lock{overflow:hidden}
+a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:1px solid var(--ice);outline-offset:4px}
+.wrap{max-width:1440px;margin:0 auto;padding:0 clamp(20px,4vw,64px)}
+.eyebrow{display:block;font-size:.68rem;letter-spacing:.38em;text-transform:uppercase;color:var(--plat);margin-bottom:26px}
+.eyebrow b{color:var(--oxl);font-weight:400}
+.h{font-weight:200;text-transform:uppercase;line-height:.98;letter-spacing:.015em;font-size:clamp(2.3rem,6.2vw,5.8rem)}
+.h em{font-family:var(--serif);font-weight:300;font-style:italic;text-transform:none;letter-spacing:0}
+.ed{font-family:var(--serif);font-weight:300;font-size:clamp(1.15rem,1.7vw,1.5rem);line-height:1.5;color:rgba(241,238,232,.82);max-width:620px;margin-top:30px}
+.ed.i{font-style:italic}
+.sm{font-size:.76rem;line-height:1.6;color:rgba(241,238,232,.5)}
+.cjk{font-family:var(--cjk);font-weight:300;letter-spacing:.3em}
+section{position:relative;padding:clamp(100px,13vw,190px) 0}
+.por{background:var(--porc);color:#14161a}
+.por .eyebrow{color:#5b6068}.por .eyebrow b{color:var(--ox)}.por .ed{color:rgba(20,22,26,.78)}.por .sm{color:rgba(20,22,26,.55)}
+.plm{background:var(--plum)}
+/* buttons */
+.btn{position:relative;display:inline-flex;align-items:center;gap:14px;padding:17px 32px;border:1px solid currentColor;font-size:.68rem;letter-spacing:.34em;text-transform:uppercase;overflow:hidden;z-index:0;transition:color .5s}
+.btn::before{content:"";position:absolute;inset:0;background:var(--porc);transform:translateX(-101%);transition:transform .6s cubic-bezier(.7,0,.2,1);z-index:-1}
+.btn:hover,.btn:focus-visible{color:var(--obs)}.btn:hover::before,.btn:focus-visible::before{transform:none}
+.btn.ox{background:var(--ox);border-color:var(--ox);color:var(--porc)}.btn.ox::before{background:var(--porc)}
+.por .btn::before{background:#14161a}.por .btn:hover{color:var(--porc)}
+.lnk{font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;border-bottom:1px solid rgba(194,199,205,.5);padding-bottom:6px;transition:.4s}.lnk:hover{border-color:var(--porc)}
+/* reveal */
+.rv{opacity:0;transform:translateY(34px);transition:opacity 1.3s cubic-bezier(.16,1,.3,1),transform 1.3s cubic-bezier(.16,1,.3,1)}
+.rv.in{opacity:1;transform:none}.d1{transition-delay:.12s}.d2{transition-delay:.24s}.d3{transition-delay:.36s}
+.mask{display:block;overflow:hidden;padding-bottom:.08em}.mask>span{display:block;transform:translateY(112%);transition:transform 1.4s cubic-bezier(.16,1,.3,1)}
+.in .mask>span,.mask.in>span{transform:none}.mask:nth-child(2)>span{transition-delay:.12s}.mask:nth-child(3)>span{transition-delay:.24s}
+/* loader */
+#loader{position:fixed;inset:0;z-index:200;background:var(--obs);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;transition:opacity 1s .1s,visibility 1s}
+#loader.done{opacity:0;visibility:hidden}
+#loader svg{width:min(70vw,360px)}#loader path{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.8s cubic-bezier(.6,0,.2,1) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+#loader .cjk{font-size:.9rem;color:var(--plat);opacity:0;animation:fadein 1s 1.2s forwards}
+#loader i{display:block;width:120px;height:1px;background:rgba(194,199,205,.2);position:relative;overflow:hidden}
+#loader i::after{content:"";position:absolute;inset:0;background:var(--plat);transform:translateX(-100%);animation:ld 2s ease-in-out forwards}
+@keyframes ld{to{transform:none}}@keyframes fadein{to{opacity:1}}
+/* header */
+header{position:fixed;inset:0 0 auto;z-index:60;padding:24px 0;transition:background .6s,padding .6s}
+header.s{background:rgba(12,14,18,.86);backdrop-filter:blur(14px);padding:14px 0;border-bottom:1px solid rgba(194,199,205,.12)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.logo{display:flex;align-items:center;gap:14px}.logo svg{height:15px;width:auto;display:block}.logo .cjk{font-size:.7rem;color:var(--plat);letter-spacing:.35em}
+nav ul{display:flex;gap:30px;list-style:none}
+nav a{font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;color:rgba(241,238,232,.7);padding:6px 0;border-bottom:1px solid transparent;transition:.4s}
+nav a:hover,nav a.on{color:var(--porc);border-color:var(--oxl)}
+.hcta{font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;border:1px solid rgba(194,199,205,.5);padding:11px 18px;transition:.4s;white-space:nowrap}.hcta:hover{background:var(--porc);color:var(--obs)}
+.burger{display:none;width:44px;height:44px;position:relative}.burger i{position:absolute;left:8px;right:8px;height:1px;background:var(--porc);transition:.4s}
+.burger i:nth-child(1){top:18px}.burger i:nth-child(2){top:26px}.burger.x i:nth-child(1){top:22px;transform:rotate(45deg)}.burger.x i:nth-child(2){top:22px;transform:rotate(-45deg)}
+.menu{position:fixed;inset:0;z-index:55;background:var(--plum);display:flex;flex-direction:column;justify-content:center;gap:16px;padding:32px;opacity:0;pointer-events:none;transition:.5s}
+.menu.open{opacity:1;pointer-events:auto}.menu a{font-weight:200;font-size:2.1rem;text-transform:uppercase;letter-spacing:.04em}
+@media(max-width:1180px){nav ul,.hcta{display:none}.burger{display:block}}
+/* hero */
+#top{min-height:min(100svh,1050px);display:flex;align-items:center;overflow:hidden;padding:0;
+background:radial-gradient(ellipse 50% 60% at 68% 52%,rgba(76,35,52,.55),rgba(36,28,41,.5) 45%,var(--obs) 78%)}
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:20px;align-items:center;padding-top:120px;padding-bottom:90px;width:100%}
+.hero h1{font-size:clamp(3.2rem,8.2vw,8rem);font-weight:200;line-height:.92;letter-spacing:.01em;text-transform:uppercase}
+.hero h1 .mask>span{transition-duration:1.8s}.hero.go h1 .mask>span{transform:none}
+.hero .sub{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(1.3rem,2.2vw,1.8rem);max-width:420px;margin:38px 0 46px;color:rgba(241,238,232,.88);line-height:1.35;opacity:0;transform:translateY(16px);transition:1.4s 1.2s}
+.hero .ctas{display:flex;gap:30px;align-items:center;flex-wrap:wrap;opacity:0;transition:1.4s 1.6s}.hero.go .sub,.hero.go .ctas,.hero.go .meta{opacity:1;transform:none}
+.hero .meta{opacity:0;transition:1.4s .6s;margin-bottom:28px}
+.hstage{position:relative;perspective:1600px;width:min(100%,560px);justify-self:center}
+.hprod{position:relative;transform-style:preserve-3d;transition:transform .35s ease-out;animation:drift 18s ease-in-out infinite;filter:brightness(0);opacity:0}
+.hero.go .hprod{animation:drift 18s ease-in-out infinite,emerge 4.5s cubic-bezier(.3,0,.2,1) .2s forwards}
+@keyframes emerge{0%{filter:brightness(0);opacity:0}30%{opacity:1}100%{filter:brightness(1);opacity:1}}
+@keyframes drift{0%,100%{margin-top:0;scale:1}50%{margin-top:-14px;scale:1.035}}
+.hprod svg,.vsvg svg{width:100%;height:auto;display:block;filter:drop-shadow(0 50px 60px rgba(0,0,0,.6))}
+.hbeam{position:absolute;inset:-10% -30%;pointer-events:none;background:linear-gradient(100deg,transparent 42%,rgba(194,199,205,.14) 50%,transparent 58%);transform:translateX(-120%);animation:beam 9s ease-in-out 3s infinite;mix-blend-mode:screen}
+@keyframes beam{0%,60%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+.floor{position:absolute;left:10%;right:10%;bottom:-6%;height:60px;background:radial-gradient(ellipse at center,rgba(194,199,205,.18),transparent 70%);filter:blur(10px)}
+.scroll{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);font-size:.58rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(241,238,232,.5);display:flex;flex-direction:column;align-items:center;gap:12px}
+.scroll i{width:1px;height:46px;background:var(--plat);transform-origin:top;animation:sc 2.6s ease-in-out infinite}@keyframes sc{0%,100%{transform:scaleY(.2)}50%{transform:scaleY(1)}}
+@media(max-width:900px){.hero{grid-template-columns:1fr;padding-top:100px}.hstage{order:-1;width:min(66vw,340px)}.scroll{display:none}}
+/* scenes */
+.scene{position:relative;overflow:hidden;background:var(--obs)}
+.scene svg{position:absolute;inset:-7% 0;width:100%;height:114%;display:block;will-change:transform}
+.scene::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse at center,transparent 45%,rgba(0,0,0,.6)),linear-gradient(to top,rgba(12,14,18,.5),transparent 45%)}
+.scene::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;opacity:.2;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+/* advantage */
+.adv{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,100px);align-items:end}
+.sub2{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(1.3rem,2.3vw,2rem);line-height:1.35;margin-top:34px;color:rgba(20,22,26,.8)}
+.advimg{position:relative;aspect-ratio:4/5}
+.advimg .scene{position:absolute;inset:0}
+.advimg figcaption{position:absolute;left:18px;bottom:16px;z-index:5;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(241,238,232,.7)}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(20,22,26,.18);margin-top:clamp(70px,9vw,130px)}
+.ba>div{background:var(--porc);padding:clamp(24px,4vw,56px)}
+.ba h3{font-weight:200;font-size:clamp(1.4rem,2.4vw,2rem);text-transform:uppercase;letter-spacing:.06em;margin-bottom:22px}
+.ba ul{list-style:none}.ba li{padding:14px 0;border-top:1px solid rgba(20,22,26,.14);font-family:var(--serif);font-size:1.18rem;line-height:1.4}
+.ba .with{background:var(--obs);color:var(--porc)}.ba .with li{border-color:rgba(194,199,205,.18)}.ba .with h3{color:var(--porc)}
+.ba .bef li{color:rgba(20,22,26,.6)}
+.core-msg{margin:clamp(70px,10vw,140px) 0 0;text-align:center}
+.core-msg p{font-weight:200;text-transform:uppercase;font-size:clamp(1.8rem,5vw,4.4rem);line-height:1.02;letter-spacing:.02em}
+.core-msg em{font-family:var(--serif);font-weight:300;text-transform:none;color:var(--ox)}
+.ids{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(20,22,26,.18);margin-top:clamp(60px,8vw,110px)}
+.ids button{background:var(--porc);text-align:left;padding:clamp(22px,3vw,40px);transition:background .6s,color .6s;position:relative;min-height:230px;display:flex;flex-direction:column;justify-content:space-between}
+.ids button:hover,.ids button.on{background:var(--ox);color:var(--porc)}
+.ids small{font-size:.62rem;letter-spacing:.36em;opacity:.6}.ids h3{font-weight:200;text-transform:uppercase;font-size:clamp(1.5rem,2.6vw,2.2rem);letter-spacing:.05em;margin-top:34px}
+.ids p{font-family:var(--serif);font-size:1.08rem;line-height:1.4;opacity:.85;margin-top:12px}
+.sm.por-n{margin-top:26px}
+@media(max-width:900px){.adv,.ba,.ids{grid-template-columns:1fr}.advimg{aspect-ratio:4/3}}
+/* V1 */
+#instrument{background:var(--plum);overflow:hidden}
+.v1{display:grid;grid-template-columns:7fr 5fr;gap:clamp(30px,5vw,80px);margin-top:clamp(50px,7vw,100px);align-items:center}
+.vstage{position:relative;aspect-ratio:600/820;max-width:560px;width:100%;margin:auto;overflow:hidden;background:radial-gradient(circle at 50% 42%,#33293a,#15121a 70%);border:1px solid rgba(194,199,205,.14);touch-action:pan-y;user-select:none;cursor:grab}
+.vstage:active{cursor:grabbing}
+.vzoom{position:absolute;inset:0;transition:transform 1.5s cubic-bezier(.16,1,.3,1)}
+.vsvg{position:absolute;inset:0;perspective:1400px;transition:transform .45s cubic-bezier(.5,0,.2,1),opacity .45s}
+.vsvg svg{height:100%;width:100%;filter:drop-shadow(0 30px 40px rgba(0,0,0,.55))}
+.vsvg.out{opacity:0;transform:rotateY(70deg) scale(.94)}.vsvg.pre{opacity:0;transform:rotateY(-70deg) scale(.94);transition:none}
+.hot{position:absolute;width:34px;height:34px;margin:-17px;border-radius:50%;border:1px solid var(--porc);background:rgba(12,14,18,.5);color:var(--porc);font-size:.6rem;letter-spacing:.1em;z-index:5;backdrop-filter:blur(4px);transition:.4s}
+.hot::after{content:"";position:absolute;inset:-7px;border:1px solid rgba(241,238,232,.5);border-radius:50%;animation:ping 2.4s infinite}@keyframes ping{to{transform:scale(1.7);opacity:0}}
+.hot:hover{background:var(--porc);color:var(--obs)}
+.vstage.zoomed .hot{opacity:0;pointer-events:none}
+.vctl{position:absolute;left:0;right:0;bottom:14px;z-index:6;display:flex;justify-content:center;align-items:center;gap:14px;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase}
+.vctl button{width:38px;height:38px;border:1px solid rgba(194,199,205,.35);border-radius:50%;background:rgba(12,14,18,.5)}.vctl button:hover{background:var(--porc);color:var(--obs)}
+.vctl span{min-width:92px;text-align:center;color:var(--plat)}
+.vcard{position:absolute;left:14px;right:14px;top:14px;z-index:7;background:rgba(12,14,18,.88);backdrop-filter:blur(10px);border:1px solid rgba(194,199,205,.2);padding:16px 18px;transform:translateY(-130%);transition:transform .7s cubic-bezier(.16,1,.3,1) .35s}
+.vstage.zoomed .vcard{transform:none}.vcard h3{font-weight:200;text-transform:uppercase;letter-spacing:.1em;font-size:1.15rem}.vcard p{font-size:.8rem;line-height:1.55;color:rgba(241,238,232,.75);margin-top:6px}
+.topics{list-style:none;border-top:1px solid rgba(194,199,205,.18)}.topics li{border-bottom:1px solid rgba(194,199,205,.18)}
+.topics button{width:100%;text-align:left;padding:18px 0;display:flex;gap:22px;align-items:baseline;font-weight:200;text-transform:uppercase;letter-spacing:.08em;font-size:1.35rem;transition:.4s}
+.topics small{font-size:.62rem;letter-spacing:.3em;color:var(--oxl)}.topics button:hover,.topics button.on{color:var(--porc);padding-left:10px}.topics button:not(.on){color:rgba(241,238,232,.62)}
+#tcopy{margin-top:26px;min-height:150px}#tcopy h4{font-weight:200;text-transform:uppercase;letter-spacing:.12em;font-size:.8rem;color:var(--plat);margin-bottom:10px}#tcopy p{font-family:var(--serif);font-size:1.2rem;line-height:1.5;color:rgba(241,238,232,.85)}
+@media(max-width:900px){.v1{grid-template-columns:1fr}}
+.slit-glow{animation:breath 5s ease-in-out infinite}.slit-run{animation:run 5.5s ease-in-out infinite}.fast .slit-glow{animation-duration:1.8s}.fast .slit-run{animation-duration:2.2s}
+@keyframes breath{0%,100%{opacity:.25}50%{opacity:.9}}@keyframes run{0%{transform:translateY(0);opacity:0}15%{opacity:.95}85%{opacity:.95}100%{transform:translateY(148px);opacity:0}}
+.coreray{transform-box:fill-box;transform-origin:center;animation:spinr 90s linear infinite}@keyframes spinr{to{transform:rotate(360deg)}}
+/* dimensions */
+.dim{position:relative;height:230vh}.dim .in{position:sticky;top:0;height:100vh;display:grid;grid-template-columns:5fr 6fr;gap:clamp(24px,5vw,80px);align-items:center;padding:90px clamp(20px,4vw,64px) 40px}
+.dim h3{font-weight:200;text-transform:uppercase;font-size:clamp(2.6rem,6vw,5.4rem);letter-spacing:.02em;line-height:1}
+.dim .no{font-size:.66rem;letter-spacing:.38em;color:var(--oxl);display:block;margin-bottom:22px}
+.dim svg{width:100%;max-height:78vh}
+.dimbar{position:absolute;right:clamp(14px,2vw,30px);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:12px;z-index:5}.dimbar i{width:1px;height:26px;background:rgba(194,199,205,.25);transition:.5s}.dimbar i.on{background:var(--porc);height:44px}
+@media(max-width:900px){.dim{height:200vh}.dim .in{grid-template-columns:1fr;grid-template-rows:auto 1fr;padding-top:84px;gap:10px;align-content:start}.dim svg{max-height:48vh}.dimbar{display:none}.dim h3{font-size:clamp(2.2rem,11vw,3.4rem)}}
+/* demo */
+#intel{background:var(--obs)}
+.ins{margin-top:clamp(40px,6vw,90px);border:1px solid rgba(194,199,205,.18);background:linear-gradient(160deg,#14161d,#0c0e12 60%);position:relative}
+.ins .bar{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:16px 24px;border-bottom:1px solid rgba(194,199,205,.14);font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--plat)}
+.ins .bar b{font-weight:400;color:var(--oxl)}
+.ins .body{display:grid;grid-template-columns:5fr 4fr 4fr}
+.ins .col{padding:clamp(18px,2.4vw,34px);border-right:1px solid rgba(194,199,205,.12)}.ins .col:last-child{border:0}
+.ins h4{font-size:.62rem;letter-spacing:.34em;text-transform:uppercase;font-weight:400;color:var(--plat);margin-bottom:16px}
+.map svg{width:100%;display:block}.map .pt{cursor:pointer}.map .pt circle.d{transition:.5s}.map text{font-family:var(--sans)}
+.sig{list-style:none}.sig li{display:grid;grid-template-columns:14px 1fr;gap:12px;padding:12px 0;border-top:1px solid rgba(194,199,205,.1);font-size:.88rem;line-height:1.5;color:rgba(241,238,232,.85)}
+.sig li i{width:6px;height:6px;border-radius:50%;background:var(--ice);margin-top:8px;box-shadow:0 0 0 3px rgba(145,164,184,.15)}
+.sig small{display:block;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(241,238,232,.42);margin-top:3px}
+.unc li i{background:transparent;border:1px solid var(--oxl);box-shadow:none}
+.paths{display:grid;gap:8px;margin-top:6px}
+.paths button{text-align:left;border:1px solid rgba(194,199,205,.2);padding:12px 14px;transition:.4s;display:block;width:100%}
+.paths button strong{display:block;font-weight:400;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase}.paths button span{font-size:.8rem;color:rgba(241,238,232,.6)}
+.paths button.on{border-color:var(--porc);background:rgba(241,238,232,.05)}.paths button.rec::after{content:"Best fit at this posture";float:right;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ice);margin-top:2px}
+.risk{margin:6px 0 20px}.risk label{display:flex;justify-content:space-between;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--plat);margin-bottom:10px}
+input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:1px;background:rgba(194,199,205,.5);outline:0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--porc);border:0;cursor:pointer;box-shadow:0 0 0 6px rgba(241,238,232,.1)}
+input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--porc);border:0;cursor:pointer}
+.synth{padding:clamp(18px,2.4vw,34px);border-top:1px solid rgba(194,199,205,.14);display:grid;grid-template-columns:auto 1fr;gap:clamp(16px,3vw,44px);align-items:start;background:rgba(76,35,52,.22)}
+.synth h4{margin:0;padding-top:6px;white-space:nowrap}.synth p{font-family:var(--serif);font-size:clamp(1.1rem,1.6vw,1.4rem);line-height:1.5}.synth p em{color:var(--plat)}
+.chip{display:inline-block;border:1px solid var(--oxl);color:#d9b5c4;padding:4px 10px;font-size:.56rem;letter-spacing:.24em;text-transform:uppercase;margin-top:12px}
+@media(max-width:1000px){.ins .body{grid-template-columns:1fr}.ins .col{border-right:0;border-bottom:1px solid rgba(194,199,205,.12)}.synth{grid-template-columns:1fr}}
+/* people */
+.pp{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,1.4vw,22px);margin-top:clamp(50px,7vw,100px)}
+.pc{position:relative;aspect-ratio:3/5;overflow:hidden;text-align:left;display:block;background:var(--plum)}
+.pc .scene{position:absolute;inset:0;transition:transform 1.6s cubic-bezier(.16,1,.3,1)}.pc:hover .scene{transform:scale(1.05)}
+.pc .t{position:absolute;left:0;right:0;bottom:0;z-index:5;padding:clamp(16px,2vw,28px);background:linear-gradient(to top,rgba(12,14,18,.92),transparent)}
+.pc small{font-size:.58rem;letter-spacing:.34em;text-transform:uppercase;color:var(--plat)}.pc h3{font-weight:200;text-transform:uppercase;font-size:clamp(1.3rem,2vw,1.8rem);letter-spacing:.06em;margin:8px 0}
+.pc p{font-family:var(--serif);font-style:italic;font-size:1rem;line-height:1.35;color:rgba(241,238,232,.85)}.pc .more{display:inline-block;margin-top:14px;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;border-bottom:1px solid var(--oxl);padding-bottom:4px}
+@media(max-width:1000px){.pp{grid-template-columns:1fr 1fr}}@media(max-width:560px){.pp{grid-template-columns:1fr}.pc{aspect-ratio:4/5}}
+dialog{margin:auto;color:var(--porc);background:var(--plum);border:1px solid rgba(194,199,205,.25);padding:0;max-width:1040px;width:94vw;max-height:92vh;overflow:auto}
+dialog::backdrop{background:rgba(12,14,18,.9);backdrop-filter:blur(8px)}
+.dg{display:grid;grid-template-columns:5fr 6fr}.dg .scene{min-height:420px}.dg .tx{padding:clamp(24px,4vw,56px)}.dg h3{font-weight:200;text-transform:uppercase;font-size:clamp(1.8rem,3.4vw,3rem);letter-spacing:.04em;line-height:1.02}
+.dg p{font-family:var(--serif);font-size:1.15rem;line-height:1.55;color:rgba(241,238,232,.85);margin-top:18px}.dg .cap{margin-top:22px}
+.dg table{width:100%;border-collapse:collapse;margin:24px 0}.dg td{padding:11px 0;border-top:1px solid rgba(194,199,205,.16);font-size:.86rem;vertical-align:top}.dg td:first-child{width:32%;font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:var(--plat);padding-right:12px}
+.x{position:absolute;right:16px;top:12px;z-index:9;font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--plat);padding:8px}.x:hover{color:var(--porc)}
+.dg .vsvg{position:relative;inset:auto;perspective:none}.dg .vsvg svg{max-height:60vh}
+@media(max-width:800px){.dg{grid-template-columns:1fr}.dg .scene{min-height:260px}}
+/* atelier */
+#atelier{background:var(--obs)}
+.at{display:grid;grid-template-columns:7fr 5fr;gap:clamp(24px,4vw,70px);margin-top:clamp(40px,6vw,90px)}
+.atv{position:relative;aspect-ratio:4/3;overflow:hidden;border:1px solid rgba(194,199,205,.14);background:#11131a}
+.atv>div{position:absolute;inset:0;opacity:0;transition:opacity 1s}.atv>div.on{opacity:1}.atv svg{width:100%;height:100%;display:block}
+.tabs{border-top:1px solid rgba(194,199,205,.18)}.tabs button{display:flex;justify-content:space-between;align-items:baseline;width:100%;text-align:left;padding:17px 0;border-bottom:1px solid rgba(194,199,205,.18);font-weight:200;text-transform:uppercase;letter-spacing:.08em;font-size:1.2rem;transition:.4s;color:rgba(241,238,232,.62)}
+.tabs button small{font-size:.58rem;letter-spacing:.3em;color:var(--oxl)}.tabs button.on,.tabs button:hover{color:var(--porc)}
+#atcopy{margin-top:26px;min-height:150px}#atcopy p{font-family:var(--serif);font-size:1.18rem;line-height:1.5;color:rgba(241,238,232,.82)}
+.sz{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(194,199,205,.15);margin-top:clamp(60px,8vw,110px)}
+.sz div{background:var(--obs);padding:clamp(20px,2.4vw,34px)}.sz h3{font-weight:200;text-transform:uppercase;letter-spacing:.1em;font-size:.95rem}.sz p{font-size:.88rem;color:rgba(241,238,232,.62);margin-top:10px;line-height:1.55}
+@media(max-width:900px){.at{grid-template-columns:1fr}.sz{grid-template-columns:1fr 1fr}}
+.pen{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 3s ease forwards}.cut{stroke-dasharray:6 8;animation:dash 6s linear infinite}@keyframes dash{to{stroke-dashoffset:-140}}
+/* collection */
+#collection{background:var(--plum)}
+.eds{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(194,199,205,.18);margin-top:clamp(40px,6vw,90px)}
+.eds button{background:var(--plum);padding:clamp(16px,2vw,28px);text-align:left;transition:background .6s;position:relative;display:block}
+.eds button.on{background:#2e2434}.eds button:hover{background:#2a2130}
+.eds .mini{height:clamp(150px,20vw,260px);display:flex;justify-content:center;margin-bottom:18px}.eds .mini svg{height:100%;width:auto;filter:drop-shadow(0 20px 20px rgba(0,0,0,.5))}
+.eds small{font-size:.58rem;letter-spacing:.34em;text-transform:uppercase;color:var(--oxl)}.eds h3{font-weight:200;text-transform:uppercase;font-size:clamp(1.3rem,2.2vw,1.9rem);letter-spacing:.1em;margin:6px 0}.eds p{font-size:.84rem;color:rgba(241,238,232,.6)}
+.eds button::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--oxl);transform:scaleX(0);transition:transform .7s cubic-bezier(.16,1,.3,1)}.eds button.on::after{transform:none}
+.cst{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,80px);align-items:center;background:linear-gradient(135deg,#34202c,#241c29 60%);padding:clamp(22px,5vw,76px);margin-top:1px}
+.cst .vw{position:relative;max-width:420px;width:100%;margin:auto;aspect-ratio:600/820}.cst .vw .vsvg{position:absolute;inset:0}
+.cst h3.h{font-size:clamp(2rem,4.4vw,3.8rem)}
+.opts{margin:26px 0;border:0}.opts legend{font-size:.62rem;letter-spacing:.32em;text-transform:uppercase;color:var(--plat);margin-bottom:12px;padding:0}
+.sw{display:flex;gap:14px;flex-wrap:wrap}.sw button{width:46px;height:46px;border-radius:50%;border:1px solid rgba(241,238,232,.3);outline-offset:3px;position:relative}.sw button.on{outline:1px solid var(--porc)}
+.sw button.sq{border-radius:3px}
+.opts .nm{font-family:var(--serif);font-style:italic;font-size:1.05rem;margin-top:10px;color:rgba(241,238,232,.8);min-height:1.6em}
+.vsw{display:flex;gap:10px;margin-top:6px}.vsw button{font-size:.58rem;letter-spacing:.26em;text-transform:uppercase;border:1px solid rgba(194,199,205,.3);padding:9px 14px}.vsw button.on{background:var(--porc);color:var(--obs)}
+.cst .row{display:flex;gap:18px;flex-wrap:wrap;margin-top:28px}
+@media(max-width:900px){.eds{grid-template-columns:1fr}.eds button{display:flex;gap:18px;align-items:center}.eds .mini{height:110px;margin:0}.cst{grid-template-columns:1fr}}
+/* house */
+.hs{display:grid;grid-template-columns:7fr 5fr;gap:clamp(30px,5vw,90px);margin-top:clamp(50px,7vw,100px)}
+.hs .big{aspect-ratio:4/3}.hs .pair{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}.hs .pair .scene{aspect-ratio:1/1}
+.hs .q{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(1.5rem,2.6vw,2.1rem);line-height:1.3;color:#14161a}
+.hs .t p{font-family:var(--serif);font-size:1.15rem;line-height:1.6;margin-top:22px;color:rgba(20,22,26,.8)}
+.trt{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(20,22,26,.18);margin-top:34px}.trt div{background:var(--porc);padding:18px}.trt h3{font-weight:300;text-transform:uppercase;letter-spacing:.14em;font-size:.76rem}.hs .t .trt p{font-family:var(--sans);font-size:.82rem;margin-top:6px;line-height:1.5}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(20,22,26,.18);margin-top:clamp(50px,7vw,100px)}.facts div{background:var(--porc);padding:clamp(18px,2.4vw,34px)}.facts h3{font-weight:200;text-transform:uppercase;letter-spacing:.08em;font-size:1.1rem}.facts p{font-size:.88rem;color:rgba(20,22,26,.65);margin-top:8px;line-height:1.55}
+@media(max-width:900px){.hs{grid-template-columns:1fr}.facts{grid-template-columns:1fr}}
+/* ownership */
+#ownership{background:linear-gradient(180deg,var(--obs),#1b1219 60%,var(--obs))}
+.own{position:relative;margin-top:clamp(50px,7vw,100px);display:grid;grid-template-columns:4fr 7fr;gap:clamp(24px,5vw,90px)}
+.own .stick{position:sticky;top:120px;align-self:start}
+.own .stick .scene{aspect-ratio:4/5}
+.stg{position:relative;padding-left:clamp(24px,4vw,56px)}.stg::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:1px;background:rgba(194,199,205,.2)}
+.stg .fill{position:absolute;left:0;top:6px;width:1px;background:var(--porc);height:0}
+.st{position:relative;padding:clamp(24px,3.4vw,44px) 0;opacity:.35;transition:opacity .8s}.st.on{opacity:1}
+.st::before{content:"";position:absolute;left:calc(-1 * clamp(24px,4vw,56px) - 4px);top:clamp(38px,4.6vw,58px);width:9px;height:9px;border-radius:50%;background:var(--obs);border:1px solid var(--plat);transition:.6s}.st.on::before{background:var(--oxl);border-color:var(--oxl);box-shadow:0 0 0 6px rgba(139,74,99,.2)}
+.st small{font-size:.62rem;letter-spacing:.36em;color:var(--oxl)}.st h3{font-weight:200;text-transform:uppercase;letter-spacing:.06em;font-size:clamp(1.5rem,2.8vw,2.3rem);margin:8px 0 10px}.st p{font-family:var(--serif);font-size:1.15rem;line-height:1.5;color:rgba(241,238,232,.78);max-width:520px}
+@media(max-width:900px){.own{grid-template-columns:1fr}.own .stick{position:relative;top:0}.own .stick .scene{aspect-ratio:16/10}}
+.fm{margin-top:clamp(80px,10vw,150px);padding-top:clamp(50px,7vw,90px);border-top:1px solid rgba(194,199,205,.18);display:grid;grid-template-columns:4fr 7fr;gap:clamp(30px,5vw,90px)}
+.fm .aside{border-left:1px solid var(--oxl);padding-left:16px;margin-top:30px}
+form{display:grid;grid-template-columns:1fr 1fr;gap:34px 40px}.full{grid-column:1/-1}
+.l{display:block;font-size:.64rem;letter-spacing:.32em;text-transform:uppercase;color:var(--plat);padding:0}
+input[type=text],input[type=email],select,textarea{width:100%;background:transparent;border:0;border-bottom:1px solid rgba(194,199,205,.35);color:var(--porc);font-family:var(--serif);font-size:1.3rem;padding:12px 0;border-radius:0;color-scheme:dark}
+select option{background:var(--plum)}input:focus,select:focus,textarea:focus{outline:0;border-color:var(--porc)}textarea{resize:none}
+input::placeholder,textarea::placeholder{color:rgba(241,238,232,.32)}
+.err{color:#e7b2c0;font-size:.84rem;margin-top:6px}[aria-invalid=true]{border-color:#e7b2c0!important}
+.rad label{display:flex;gap:10px;align-items:center;margin-top:10px;cursor:pointer;color:rgba(241,238,232,.85)}
+input[type=radio],input[type=checkbox]{accent-color:#8B4A63;width:16px;height:16px}
+.chk{display:flex;gap:12px;align-items:flex-start;font-size:.86rem;color:rgba(241,238,232,.7);cursor:pointer}
+.done{display:none;border:1px solid rgba(194,199,205,.3);background:rgba(76,35,52,.3);padding:clamp(28px,5vw,60px)}.done h3{outline:0}.done p{font-family:var(--serif);font-size:1.2rem;margin-top:16px;color:rgba(241,238,232,.85)}.done p.ref{font-family:var(--sans);font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;color:var(--plat)}
+@media(max-width:900px){.fm{grid-template-columns:1fr}form{grid-template-columns:1fr}}
+/* final */
+#final{min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:radial-gradient(ellipse 60% 50% at 50% 55%,rgba(76,35,52,.6),var(--obs) 70%)}
+#final .fp{width:min(54vw,300px);margin:0 auto 20px;animation:drift 14s ease-in-out infinite;transform:rotate(-8deg)}
+#final h2{font-weight:200;text-transform:uppercase;font-size:clamp(2.6rem,8.4vw,8rem);line-height:.95;letter-spacing:.01em}
+#final p.ed{margin:26px auto 44px;max-width:520px}
+/* footer */
+footer{background:var(--obs);border-top:1px solid rgba(194,199,205,.14);padding:80px 0 34px}
+.ft{display:grid;grid-template-columns:5fr 4fr 3fr;gap:50px}.ft .logo svg{height:22px}
+.ft ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:14px 20px}.ft ul a{font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;color:rgba(241,238,232,.7)}.ft ul a:hover{color:var(--porc)}
+.legal{margin-top:64px;padding-top:24px;border-top:1px solid rgba(194,199,205,.12);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:.72rem;color:rgba(241,238,232,.42);line-height:1.6}
+@media(max-width:900px){.ft{grid-template-columns:1fr}}
+.sr{position:absolute;left:-9999px}.sr:focus{left:10px;top:10px;background:var(--porc);color:var(--obs);padding:8px 14px;z-index:300}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}html{scroll-behavior:auto}.rv{opacity:1;transform:none}.mask>span{transform:none}.hprod{filter:none;opacity:1}#loader{display:none}.hero .sub,.hero .ctas,.hero .meta{opacity:1;transform:none}.dim{height:auto}.dim .in{position:relative;height:auto;min-height:80vh}}
+</style>
+</head>
+<body>
+<a class="sr" href="#main">Skip to content</a>
+
+<div id="loader" aria-hidden="true">
+  <svg viewBox="0 0 290 40" fill="none" stroke="#F1EEE8" stroke-width="3.2" stroke-linecap="square" stroke-linejoin="miter" id="lsvg"></svg>
+  <span class="cjk">深维</span><i></i>
+</div>
+
+<header id="hd"><div class="wrap">
+  <a class="logo" href="#top" aria-label="SENVA 深维 — home"><span id="logoMark"></span><span class="cjk">深维</span></a>
+  <nav aria-label="Primary"><ul>
+    <li><a href="#instrument">The Instrument</a></li><li><a href="#people">The People</a></li><li><a href="#atelier">Craftsmanship</a></li>
+    <li><a href="#collection">Collection</a></li><li><a href="#house">The House</a></li><li><a href="#ownership">Ownership</a></li>
+  </ul></nav>
+  <a class="hcta" href="#access">Request Private Access</a>
+  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><i></i><i></i></button>
+</div></header>
+<div class="menu" id="menu">
+  <a href="#instrument">The Instrument</a><a href="#people">The People</a><a href="#atelier">Craftsmanship</a><a href="#collection">Collection</a><a href="#house">The House</a><a href="#ownership">Private Ownership</a><a href="#access">Request Private Access</a>
+</div>
+
+<main id="main">
+
+<!-- 1 HERO -->
+<section id="top"><div class="wrap hero" id="hero">
+  <div>
+    <span class="eyebrow meta"><span class="cjk" style="letter-spacing:.3em">深维</span> &nbsp;·&nbsp; Shenzhen &nbsp;·&nbsp; <b>Est. 2026</b></span>
+    <h1 aria-label="Own the edge."><span class="mask" aria-hidden="true"><span>Own the</span></span><span class="mask" aria-hidden="true"><span style="color:var(--plat)">Edge.</span></span></h1>
+    <p class="sub">Intelligence is everywhere. The advantage is not.</p>
+    <div class="ctas"><a class="btn" href="#instrument">Discover SENVA V1</a><a class="lnk" href="#access">Request Private Access</a></div>
+  </div>
+  <div class="hstage" id="hstage"><div class="hprod" id="hprod"></div><div class="hbeam"></div><div class="floor"></div></div>
+</div><div class="scroll" aria-hidden="true"><span>Scroll</span><i></i></div></section>
+
+<!-- 2 ADVANTAGE -->
+<section class="por" id="advantage"><div class="wrap">
+  <div class="adv">
+    <div>
+      <span class="eyebrow rv">The Advantage of Ownership</span>
+      <h2 class="h" aria-label="Not everyone goes further."><span class="mask"><span>Not everyone</span></span><span class="mask"><span>goes <em>further.</em></span></span></h2>
+      <p class="sub2 rv">Some see more. Some understand deeper. Some decide differently.</p>
+      <p class="ed rv d1">In an age when intelligence is becoming ordinary, distinction comes from the quality of your judgment, the depth of your understanding, and your ability to act ahead of others. SENVA exists to give its owners that advantage.</p>
+    </div>
+    <figure class="advimg rv d1"><div class="scene" id="sAdv"></div><figcaption>Conceptual imagery · The Strategist at the hall</figcaption></figure>
+  </div>
+
+  <div class="ba">
+    <div class="bef rv"><span class="eyebrow">Before</span><h3>Ordinary</h3><ul><li>You react to information.</li><li>You decide with limited time and knowledge.</li><li>You meet complexity alone.</li><li>You compete with ordinary tools.</li></ul></div>
+    <div class="with rv d1"><span class="eyebrow" style="color:var(--plat)">With SENVA</span><h3>Advantaged</h3><ul><li>You recognise important signals earlier.</li><li>You explore complex decisions with personalised intelligence.</li><li>You build deeper, long-term contextual knowledge.</li><li>You gain strategic clarity, and an exclusive ownership experience.</li></ul></div>
+  </div>
+  <p class="sm por-n rv">These are the brand’s intended benefits, not guaranteed results.</p>
+
+  <div class="core-msg"><p class="rv"><span style="display:block">You were never meant</span><span style="display:block">to remain <em>ordinary.</em></span></p></div>
+
+  <div class="ids" id="ids"></div>
+</div></section>
+
+<!-- 3 MEET V1 -->
+<section class="plm" id="instrument"><div class="wrap">
+  <span class="eyebrow rv">Meet SENVA V1 · Personal Intelligence Instrument</span>
+  <h2 class="h" aria-label="Intelligence, given form."><span class="mask"><span>Intelligence,</span></span><span class="mask"><span>given <em>form.</em></span></span></h2>
+  <p class="ed rv">A sculptural instrument for the wrist. No dial. No hands. No icon grid. One architectural body, one ambient line of light, and the SENVA CORE: the physical key to your private intelligence.</p>
+  <div class="v1">
+    <div class="vstage" id="vstage" aria-label="SENVA V1 product viewer. Drag or use arrow keys to rotate." tabindex="0">
+      <div class="vzoom" id="vzoom"><div class="vsvg" id="vsvg"></div></div>
+      <div id="hots"></div>
+      <div class="vcard" role="status"><h3 id="vct"></h3><p id="vcb"></p></div>
+      <div class="vctl"><button id="vprev" aria-label="Previous angle">←</button><span id="vname">Front</span><button id="vnext" aria-label="Next angle">→</button></div>
+    </div>
+    <div>
+      <span class="eyebrow">Explore the instrument</span>
+      <ul class="topics" id="topics"></ul>
+      <div id="tcopy" aria-live="polite"></div>
+      <a class="btn" href="#access" style="margin-top:14px">Request Private Access</a>
+      <p class="sm" style="margin-top:26px">Concept render. SENVA V1 is a speculative design; no hardware exists and no specifications are certified.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- 4 DIMENSIONS -->
+<section id="dimensions" style="padding:clamp(100px,13vw,190px) 0 0">
+  <div class="wrap" style="padding-bottom:40px"><span class="eyebrow rv">The Four Dimensions</span>
+  <h2 class="h" aria-label="Beyond ordinary capability."><span class="mask"><span>Beyond ordinary</span></span><span class="mask"><span><em>capability.</em></span></span></h2>
+  <p class="ed rv">Ambitious product design goals, not independently verified performance claims.</p></div>
+  <div id="dims"></div>
+</section>
+
+<!-- DEMO -->
+<section id="intel"><div class="wrap">
+  <span class="eyebrow rv">The Private Intelligence · A Conceptual Demonstration</span>
+  <h2 class="h" aria-label="One decision, fully considered."><span class="mask"><span>One decision,</span></span><span class="mask"><span>fully <em>considered.</em></span></span></h2>
+  <p class="ed rv">An entrepreneur weighs five emerging markets. SENVA does not answer for them. It sets out the signals, the uncertainties and the paths, and leaves the judgment where it belongs.</p>
+  <div class="ins rv" id="ins">
+    <div class="bar"><span>SENVA · Private brief · <b>Nº 0001</b></span><span>Conceptual demonstration · Illustrative data</span></div>
+    <div class="body">
+      <div class="col map"><h4>Opportunity field</h4><div id="map"></div><p class="sm" style="margin-top:10px">Select a market. Position is illustrative: momentum across, resilience upward.</p></div>
+      <div class="col"><h4 id="mk">Signals</h4><ul class="sig" id="sigs"></ul><h4 style="margin-top:22px">Key uncertainties</h4><ul class="sig unc" id="uncs"></ul></div>
+      <div class="col"><h4>Posture</h4><div class="risk"><label for="risk"><span>Cautious</span><span id="rl">Measured</span><span>Ambitious</span></label><input type="range" id="risk" min="0" max="100" value="50" aria-label="Risk posture"></div><h4>Strategic paths</h4><div class="paths" id="paths"></div></div>
+    </div>
+    <div class="synth"><h4>Synthesis</h4><div><p id="syn" aria-live="polite"></p><span class="chip">Supports human judgment · Not a prediction</span></div></div>
+  </div>
+</div></section>
+
+<!-- 5 PEOPLE -->
+<section class="plm" id="people"><div class="wrap">
+  <span class="eyebrow rv">The People Who Shape Tomorrow</span>
+  <h2 class="h" aria-label="For those who move the world forward."><span class="mask"><span>For those who move</span></span><span class="mask"><span>the world <em>forward.</em></span></span></h2>
+  <p class="ed rv">Four conceptual campaign stories. Human ability, amplified, never replaced. Fictional characters; no real endorsements.</p>
+  <div class="pp" id="pp"></div>
+</div></section>
+
+<!-- 6 ATELIER -->
+<section id="atelier"><div class="wrap">
+  <span class="eyebrow rv">The SENVA Atelier · Shenzhen</span>
+  <h2 class="h" aria-label="Engineered with intention."><span class="mask"><span>Engineered</span></span><span class="mask"><span>with <em>intention.</em></span></span></h2>
+  <p class="ed rv">Shenzhen turns ambitious ideas into precisely engineered objects faster than anywhere else. SENVA pairs that precision with the emotional language of luxury craft.</p>
+  <div class="at"><div class="atv" id="atv"></div><div><div class="tabs" id="attabs" role="tablist" aria-label="Atelier disciplines"></div><div id="atcopy" aria-live="polite"></div></div></div>
+  <div class="sz">
+    <div class="rv"><h3>Precision</h3><p>Advanced machining and tight tolerances as a starting point, not a feature.</p></div>
+    <div class="rv d1"><h3>Experiment</h3><p>A culture of rapid prototyping, tested against the owner’s daily life.</p></div>
+    <div class="rv d2"><h3>Material</h3><p>Titanium, ceramic and sapphire-like glass, researched for how they feel and age.</p></div>
+    <div class="rv d3"><h3>Restraint</h3><p>Every surface edited until only the necessary remains.</p></div>
+  </div>
+  <p class="sm" style="margin-top:30px">The Atelier is SENVA’s conceptual design and production vision. It does not describe an existing factory.</p>
+</div></section>
+
+<!-- 7 COLLECTION -->
+<section id="collection"><div class="wrap">
+  <span class="eyebrow rv">The Collection</span>
+  <h2 class="h" aria-label="Three expressions of excellence."><span class="mask"><span>Three expressions</span></span><span class="mask"><span>of <em>excellence.</em></span></span></h2>
+  <div class="eds" id="eds" role="tablist" aria-label="Choose an edition"></div>
+  <div class="cst" id="cst"></div>
+</div></section>
+
+<!-- 8 HOUSE -->
+<section class="por" id="house"><div class="wrap">
+  <span class="eyebrow rv">The House of SENVA <span class="cjk" style="letter-spacing:.3em">· 深维</span></span>
+  <h2 class="h" aria-label="Born in Shenzhen. Built for what comes next."><span class="mask"><span>Born in Shenzhen.</span></span><span class="mask"><span>Built for what <em>comes next.</em></span></span></h2>
+  <div class="hs">
+    <div><div class="scene big" id="sSz"></div><div class="pair"><div class="scene" id="sLab"></div><div class="scene" id="sFab"></div></div><p class="sm" style="margin-top:14px">Conceptual editorial imagery of Shenzhen, material research and fabrication.</p></div>
+    <div class="t">
+      <p class="q rv">The future of luxury is not simply what you own. It is what ownership enables you to become.</p>
+      <p class="rv">SENVA was founded in Shenzhen in 2026 by an industrial designer and an AI systems researcher. Both saw the same problem: as intelligent tools became ordinary, they stopped feeling exceptional.</p>
+      <p class="rv">They imagined a different relationship. Not another subscription, application or convenience, but a deeply personal, meticulously crafted instrument of advancement, through which a person could cultivate foresight, judgment and mastery.</p>
+      <p class="rv">Inspired by Shenzhen’s extraordinary ability to turn ambitious ideas into precisely engineered objects, they built a house dedicated to personal intelligence instruments for an exclusive clientele.</p>
+      <div class="trt rv"><div><h3>The Designer</h3><p>Industrial designer. Believes an object should carry an idea.</p></div><div><h3>The Researcher</h3><p>AI systems researcher. Believes intelligence should be personal.</p></div></div>
+      <p class="sm" style="margin-top:20px">A fictional founding narrative. The founders, facilities and history are invented for a design project and are not verified facts.</p>
+    </div>
+  </div>
+  <div class="facts"><div class="rv"><h3>Prestige from the future</h3><p>Traditional luxury celebrates heritage. SENVA celebrates advancement.</p></div><div class="rv d1"><h3>Shenzhen</h3><p>Hardware invention, intelligent systems, engineering experiment and speed.</p></div><div class="rv d2"><h3>Confidently contemporary</h3><p>Chinese in origin, global in outlook, with no borrowed history.</p></div></div>
+</div></section>
+
+<!-- 9 OWNERSHIP -->
+<section id="ownership"><div class="wrap">
+  <span class="eyebrow rv">The Privilege of Ownership</span>
+  <h2 class="h" aria-label="Ownership is only the beginning."><span class="mask"><span>Ownership is</span></span><span class="mask"><span>only the <em>beginning.</em></span></span></h2>
+  <p class="ed rv">SENVA is not added to a basket. Production is intentionally limited, every instrument is individually numbered, and acquisition is by private appointment.</p>
+  <div class="own"><div class="stick rv"><div class="scene" id="sOwn"></div></div><div class="stg" id="stg"><span class="fill" id="stfill"></span></div></div>
+
+  <div class="fm" id="access">
+    <div><span class="eyebrow">Private Access</span><h3 class="h" style="font-size:clamp(2rem,4vw,3.4rem)">Request Private Access</h3>
+      <p class="ed" style="font-size:1.1rem">Tell us a little about yourself. In a real house, an ownership specialist would reply personally.</p>
+      <p class="aside sm">Demonstration only. SENVA is a fictional concept: this form runs entirely in your browser. Nothing is sent, stored or answered.</p></div>
+    <div>
+      <form id="form" novalidate>
+        <div><label class="l" for="name">Full name</label><input type="text" id="name" autocomplete="name" placeholder="Your name"><div class="err" id="e-name" role="alert"></div></div>
+        <div><label class="l" for="email">Email</label><input type="email" id="email" autocomplete="email" placeholder="you@example.com"><div class="err" id="e-email" role="alert"></div></div>
+        <div><label class="l" for="city">City and country</label><input type="text" id="city" autocomplete="address-level2" placeholder="Where you are based"><div class="err" id="e-city" role="alert"></div></div>
+        <div><label class="l" for="role">Your field</label><input type="text" id="role" placeholder="e.g. Architecture, research, founder"><div class="err" id="e-role" role="alert"></div></div>
+        <div><label class="l" for="edition">Edition of interest</label><select id="edition"><option value="">Select</option><option>Obsidian</option><option>Platinum</option><option>Oxblood</option><option>I would like guidance</option></select><div class="err" id="e-edition" role="alert"></div></div>
+        <fieldset class="rad" style="border:0"><legend class="l">Private introduction</legend><label><input type="radio" name="fmt" checked> In person, Shenzhen</label><label><input type="radio" name="fmt"> Private video</label></fieldset>
+        <div class="full"><label class="l" for="msg">What would you ask of your instrument? (optional)</label><textarea id="msg" rows="3" placeholder="A few words are enough"></textarea></div>
+        <div class="full"><label class="chk"><input type="checkbox" id="consent"> I understand this is a fictional concept and a demonstration form: nothing will be sent or stored.</label><div class="err" id="e-consent" role="alert"></div></div>
+        <div class="full"><button class="btn ox" type="submit">Request Private Access</button></div>
+      </form>
+      <div class="done" id="done" role="status"><span class="eyebrow">Demonstration submission</span><h3 class="h" id="doneH" tabindex="-1" style="font-size:clamp(1.8rem,3.4vw,3rem)"></h3><p id="doneP"></p><p class="ref" id="doneRef"></p><button class="btn" id="again" style="margin-top:30px">Make another request</button></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 10 FINAL -->
+<section id="final"><div class="wrap">
+  <div class="fp" id="fp"></div>
+  <h2 aria-label="The future does not wait."><span class="mask"><span>The future</span></span><span class="mask"><span>does not wait.</span></span></h2>
+  <p class="ed i rv">Neither should your ambition.</p>
+  <a class="btn ox rv" href="#access">Request Private Access</a>
+</div></section>
+</main>
+
+<footer id="contact"><div class="wrap">
+  <div class="ft">
+    <div><div class="logo" id="ftLogo"></div><p class="cjk" style="margin-top:14px;color:var(--plat);font-size:.9rem">深维</p><p class="sm" style="margin-top:14px;max-width:300px">Own the edge.<br>Ultra-luxury personal intelligence instruments. Shenzhen, China.</p></div>
+    <nav aria-label="Footer"><ul><li><a href="#instrument">The Instruments</a></li><li><a href="#house">The SENVA House</a></li><li><a href="#atelier">Craftsmanship</a></li><li><a href="#people">The People</a></li><li><a href="#ownership">Private Ownership</a></li><li><a href="#contact">Contact</a></li></ul></nav>
+    <div><span class="eyebrow">Contact</span><p class="sm">A fictional house. There is no address, telephone or inbox behind this page.</p></div>
+  </div>
+  <div class="legal"><p>© 2026 SENVA 深维. A speculative luxury brand concept for a design project.</p><p>SENVA V1 is a conceptual product. Imagery is generated vector art. No partnerships, endorsements, facilities, awards or certified specifications are implied.</p></div>
+</div></footer>
+
+<script>
+(function(){
+"use strict";
+var $=function(s,r){return(r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+var ICE="#91A4B8",PLAT="#C2C7CD",PORC="#F1EEE8",OBS="#0C0E12",OX="#4C2334",PLUM="#241C29",OXL="#8B4A63";
+function rng(s){return function(){s=s*16807%2147483647;return(s-1)/2147483646}}
+
+/* ---------- logotype (custom geometric wordmark) ---------- */
+var LET={S:"M42 6H8V19H42V32H8",E:"M42 6H8V32H42M8 19H34",N:"M8 32V6L42 32V6",V:"M8 6L25 32L42 6",A:"M8 32L25 6L42 32M15 22H35"};
+function wmInner(anim){return "SENVA".split("").map(function(c,i){return '<path d="'+LET[c]+'" transform="translate('+(i*60)+' 0)"'+(anim?' pathLength="1" style="animation-delay:'+(i*.18)+'s"':'')+'/>'}).join("")}
+function wordmark(stroke,sw){return '<svg viewBox="0 0 290 40" fill="none" stroke="'+stroke+'" stroke-width="'+sw+'" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">'+wmInner(false)+'</svg>'}
+$("#lsvg").innerHTML=wmInner(true);
+$("#logoMark").innerHTML=wordmark(PORC,3.6);$("#ftLogo").innerHTML=wordmark(PORC,3.2);
+
+/* ---------- SENVA V1 renderer (front / side / back) ---------- */
+var uid=0;
+var FR="M262 222H405Q420 222 420 238V520L358 598H196Q170 598 170 572V330Z";
+var PL="M268 240H398Q404 240 404 246V512L352 580H198Q188 580 188 570V336Z";
+var EDS=[
+ {id:"Obsidian",line:"Black ceramic. Dark titanium.",mood:"Minimal, powerful, architectural.",
+  frame:["#6b7078","#23262c","#4a4e56","#14161a"],plate:["#1d2027","#08090c"],ptxt:PLAT,ring:["#e4e8ec","#7d838b","#c2c7cd","#4a4f56"],
+  bands:[["Matte ceramic link","link","#1a1c21"],["Textured fluoroelastomer","rubber","#15171b"],["Titanium mesh","mesh","#3d4148"]],
+  cores:[["Platinum","#C2C7CD"],["Smoked sapphire","#262b35"],["Oxblood ceramic","#6a2b42"]],
+  blurb:"Black ceramic over dark titanium. A silhouette that reads as a single architectural gesture: quiet in the dark, unmistakable in the light.",
+  det:[["Body","Dark titanium frame, hand-finished, aerospace-inspired"],["Surface","Polished black ceramic plate"],["Interface","Sapphire-like ambient light line"],["CORE","Platinum-toned, machined, seated by quarter-turn"],["Ownership","Individually numbered, private acquisition"]]},
+ {id:"Platinum",line:"Satin silver titanium. Porcelain detail.",mood:"Precise, luminous, contemporary.",
+  frame:["#f1f3f5","#a9afb6","#dfe3e7","#80868e"],plate:["#f6f3ec","#d8d3c9"],ptxt:"#4a4f56",ring:["#f4f6f8","#aeb4bb","#e2e6ea","#7d838b"],
+  bands:[["Porcelain-white ceramic link","link","#e8e4dc"],["Platinum mesh","mesh","#b9bec5"],["Mist fluoroelastomer","rubber","#cfd3d8"]],
+  cores:[["Platinum","#C2C7CD"],["Porcelain","#EFEBE3"],["Ice sapphire","#91A4B8"]],
+  blurb:"Satin-finished silver titanium with porcelain details. The lightest expression of the instrument: precise, luminous, and calmly contemporary.",
+  det:[["Body","Satin-finished silver titanium"],["Surface","Porcelain-white ceramic plate"],["Interface","Sapphire-like ambient light line"],["CORE","Platinum-toned, machined, seated by quarter-turn"],["Ownership","Individually numbered, private acquisition"]]},
+ {id:"Oxblood",line:"Burgundy ceramic. Brushed platinum.",mood:"Bold, sophisticated, distinctive.",
+  frame:["#e6e9ec","#8d939b","#c9cdd2","#5e646c"],plate:["#4f2438","#240f1a"],ptxt:"#e7d3da",ring:["#eef0f2","#9aa0a8","#d4d8dc","#666c74"],
+  bands:[["Oxblood ceramic link","link","#4C2334"],["Burgundy fluoroelastomer","rubber","#3a1b29"],["Brushed platinum mesh","mesh","#b4b9c0"]],
+  cores:[["Oxblood ceramic","#6a2b42"],["Platinum","#C2C7CD"],["Smoked sapphire","#262b35"]],
+  blurb:"Deep burgundy ceramic against brushed platinum-coloured metal. The signature SENVA colour, worn with confidence.",
+  det:[["Body","Brushed platinum-coloured metal frame"],["Surface","Deep burgundy ceramic plate"],["Interface","Sapphire-like ambient light line"],["CORE","Oxblood ceramic inlay, machined platinum ring"],["Ownership","Individually numbered, private acquisition"]]}
+];
+function G(id,stops,x1,y1,x2,y2){return '<linearGradient id="'+id+'" x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'">'+stops.map(function(s,i){return '<stop offset="'+(i/(stops.length-1)).toFixed(2)+'" stop-color="'+s+'"/>'}).join("")+'</linearGradient>'}
+function bandPattern(id,b){var t=b[1],c=b[2],o="";
+ if(t==="link")o='<pattern id="'+id+'" width="40" height="17" patternUnits="userSpaceOnUse"><rect width="40" height="17" fill="'+c+'"/><rect y="14.5" width="40" height="2.5" fill="#000" opacity=".5"/><rect y="0" width="40" height="1.2" fill="#fff" opacity=".18"/></pattern>';
+ else if(t==="rubber")o='<pattern id="'+id+'" width="7" height="40" patternUnits="userSpaceOnUse"><rect width="7" height="40" fill="'+c+'"/><rect width="1.4" height="40" fill="#fff" opacity=".07"/><rect x="4" width="1" height="40" fill="#000" opacity=".25"/></pattern>';
+ else o='<pattern id="'+id+'" width="7" height="7" patternUnits="userSpaceOnUse"><rect width="7" height="7" fill="'+c+'"/><path d="M0 0L7 7M7 0L0 7" stroke="#000" stroke-opacity=".28" stroke-width=".9"/><path d="M0 3.5H7" stroke="#fff" stroke-opacity=".12"/></pattern>';
+ return o}
+function v1(view,ed,o){
+ o=o||{};var u="v"+(++uid),p=ed,b=o.band||ed.bands[0],c=o.core||ed.cores[0],light=ed.id==="Platinum";
+ var s='<svg viewBox="0 0 600 820" role="img" aria-label="SENVA V1 '+ed.id+', '+view+' view" xmlns="http://www.w3.org/2000/svg"><defs>'+
+  G("f"+u,p.frame,0,0,1,1)+G("fh"+u,p.frame,0,0,1,0)+G("fr"+u,p.frame.slice().reverse(),0,0,1,1)+
+  '<radialGradient id="pl'+u+'" cx=".3" cy=".25" r=".95"><stop offset="0" stop-color="'+p.plate[0]+'"/><stop offset="1" stop-color="'+p.plate[1]+'"/></radialGradient>'+
+  G("rg"+u,p.ring,0,0,1,1)+bandPattern("bp"+u,b)+
+  '<linearGradient id="bs'+u+'" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".5"/><stop offset=".3" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".55"/></linearGradient>'+
+  '<linearGradient id="bf'+u+'" y1="0" y2="1" x1="0" x2="0"><stop offset="0" stop-color="#000" stop-opacity=".6"/><stop offset=".35" stop-color="#000" stop-opacity="0"/></linearGradient>'+
+  '<linearGradient id="bg'+u+'" y1="1" y2="0" x1="0" x2="0"><stop offset="0" stop-color="#000" stop-opacity=".6"/><stop offset=".35" stop-color="#000" stop-opacity="0"/></linearGradient>'+
+  '<pattern id="br'+u+'" width="4" height="3" patternUnits="userSpaceOnUse"><rect width="4" height="1" fill="#fff" opacity=".07"/></pattern>'+
+  '<linearGradient id="sg'+u+'" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#0a0d12"/><stop offset=".5" stop-color="#1b2430"/><stop offset="1" stop-color="#0a0d12"/></linearGradient>'+
+  '<clipPath id="cf'+u+'"><path d="'+FR+'"/></clipPath><clipPath id="cp'+u+'"><path d="'+PL+'"/></clipPath><filter id="bl'+u+'"><feGaussianBlur stdDeviation="3"/></filter></defs>';
+ function band(){var T="M270 -4L372 -4L398 232L268 232Z",B="M206 590H350L334 824H224Z";return '<g><path d="'+T+'" fill="url(#bp'+u+')"/><path d="'+T+'" fill="url(#bs'+u+')"/><path d="'+T+'" fill="url(#bf'+u+')"/>'+
+   '<path d="'+B+'" fill="url(#bp'+u+')"/><path d="'+B+'" fill="url(#bs'+u+')"/><path d="'+B+'" fill="url(#bg'+u+')"/></g>'}
+ if(view==="front"){
+  s+=band()+
+  '<path d="'+FR+'" fill="url(#f'+u+')" stroke="#000" stroke-opacity=".55" stroke-width="1.2"/><path d="'+FR+'" fill="url(#br'+u+')"/>'+
+  '<path d="'+FR+'" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1.4" transform="translate(1.2 1.2)" clip-path="url(#cf'+u+')"/>'+
+  '<rect x="416" y="290" width="16" height="64" rx="5" fill="url(#fh'+u+')" stroke="#000" stroke-opacity=".6"/>'+[0,1,2,3,4].map(function(i){return '<line x1="419" x2="429" y1="'+(300+i*10)+'" y2="'+(300+i*10)+'" stroke="#000" stroke-opacity=".5"/>'}).join("")+
+  '<path d="'+PL+'" fill="url(#pl'+u+')" stroke="#000" stroke-opacity=".5"/>'+
+  '<g clip-path="url(#cp'+u+')"><path d="M188 340L290 240H350L214 580H188Z" fill="#fff" opacity="'+(light?.28:.06)+'"/><path d="M368 240H398Q404 240 404 246V400Z" fill="#fff" opacity="'+(light?.2:.04)+'"/></g>'+
+  '<rect x="198" y="346" width="24" height="200" rx="12" fill="url(#sg'+u+')" stroke="#fff" stroke-opacity=".14"/>'+
+  '<g class="slit"><rect class="slit-glow" x="208" y="360" width="4" height="172" rx="2" fill="'+ICE+'"/><rect class="slit-run" x="206.5" y="360" width="7" height="30" rx="3.5" fill="#fff" opacity="0"/></g>'+
+  [0,1,2,3,4,5].map(function(i){return '<line x1="230" x2="'+(i%5===0?240:235)+'" y1="'+(360+i*34)+'" y2="'+(360+i*34)+'" stroke="'+p.ptxt+'" stroke-opacity=".4"/>'}).join("")+
+  '<text transform="translate(272 450) rotate(-90)" text-anchor="middle" fill="'+p.ptxt+'" fill-opacity=".55" font-size="12" letter-spacing="9" font-family="Hanken Grotesk,Helvetica Neue,Arial,sans-serif">SENVA</text>'+
+  '<text x="258" y="566" fill="'+p.ptxt+'" fill-opacity=".4" font-size="7" letter-spacing="3" font-family="Hanken Grotesk,Arial,sans-serif">V1 · Nº 0001</text>'+
+  '<g class="core"><circle cx="420" cy="488" r="44" fill="#000" opacity=".35" filter="url(#bl'+u+')"/><circle cx="420" cy="486" r="42" fill="url(#rg'+u+')" stroke="#000" stroke-opacity=".5"/>'+
+  '<circle cx="420" cy="486" r="35" fill="#000" opacity=".6"/><circle cx="420" cy="486" r="32" fill="url(#rg'+u+')"/><g class="coreray">'+
+  Array.from({length:60},function(_,i){var a=i/60*6.2832;return '<line x1="'+(420+Math.cos(a)*9).toFixed(1)+'" y1="'+(486+Math.sin(a)*9).toFixed(1)+'" x2="'+(420+Math.cos(a)*29).toFixed(1)+'" y2="'+(486+Math.sin(a)*29).toFixed(1)+'" stroke="#000" stroke-opacity="'+(i%2?.1:.22)+'"/>'}).join("")+'</g>'+
+  '<circle cx="420" cy="486" r="12" fill="'+c[1]+'" stroke="'+PLAT+'" stroke-opacity=".7"/><circle cx="420" cy="486" r="3" fill="#000" opacity=".55"/><path d="M402 474A22 22 0 0 1 424 464" stroke="#fff" stroke-opacity=".6" stroke-width="2.4" fill="none" stroke-linecap="round"/></g>'+
+  '</svg>';return s}
+ if(view==="side"){
+  s+='<g fill="none" stroke-linecap="butt"><path d="M303 240C303 150 384 98 560 66" stroke="url(#bp'+u+')" stroke-width="34"/>'+
+   '<path d="M303 586C303 676 384 728 560 758" stroke="url(#bp'+u+')" stroke-width="34"/></g>'+
+   '<rect x="238" y="232" width="128" height="362" rx="30" fill="url(#fh'+u+')" stroke="#000" stroke-opacity=".55"/>'+
+   '<rect x="238" y="232" width="128" height="362" rx="30" fill="url(#br'+u+')"/>'+
+   '<path d="M238 262Q238 232 268 232H284V594H268Q238 594 238 564Z" fill="url(#pl'+u+')" stroke="#000" stroke-opacity=".5"/><rect x="241" y="260" width="4" height="306" rx="2" fill="#fff" opacity="'+(light?.5:.22)+'"/>'+
+   '<rect x="250" y="330" width="6" height="204" rx="3" fill="'+ICE+'" opacity=".55"/>'+
+   '<rect x="340" y="250" width="26" height="326" rx="14" fill="url(#fr'+u+')" opacity=".9"/><rect x="360" y="372" width="18" height="76" rx="9" fill="url(#sg'+u+')" stroke="#fff" stroke-opacity=".18"/>'+
+   '<rect x="292" y="300" width="22" height="62" rx="7" fill="url(#f'+u+')" stroke="#000" stroke-opacity=".6"/>'+[0,1,2,3,4,5].map(function(i){return '<line x1="296" x2="310" y1="'+(309+i*9)+'" y2="'+(309+i*9)+'" stroke="#000" stroke-opacity=".5"/>'}).join("")+
+   '<ellipse cx="238" cy="512" rx="14" ry="38" fill="url(#rg'+u+')" stroke="#000" stroke-opacity=".5"/><ellipse cx="232" cy="512" rx="4" ry="12" fill="'+c[1]+'"/>'+
+   '<path d="M238 262Q238 232 268 232H366V240H268Q246 240 246 262Z" fill="#fff" opacity=".18"/></svg>';return s}
+ s+=band()+'<g transform="translate(600 0) scale(-1 1)"><path d="'+FR+'" fill="url(#fr'+u+')" stroke="#000" stroke-opacity=".55" stroke-width="1.2"/><path d="'+FR+'" fill="url(#br'+u+')"/>'+
+  '<path d="'+PL+'" fill="url(#f'+u+')" stroke="#000" stroke-opacity=".5"/></g>'+
+  '<rect x="240" y="318" width="124" height="180" rx="26" fill="url(#sg'+u+')" stroke="#fff" stroke-opacity=".16"/>'+
+  [[302,360],[302,408],[302,456]].map(function(q){return '<circle cx="'+q[0]+'" cy="'+q[1]+'" r="13" fill="#05070a" stroke="'+PLAT+'" stroke-opacity=".4"/><circle cx="'+q[0]+'" cy="'+q[1]+'" r="5" fill="'+ICE+'" opacity=".5"/>'}).join("")+
+  '<g class="core"><circle cx="180" cy="488" r="43" fill="#000" opacity=".35" filter="url(#bl'+u+')"/><circle cx="180" cy="486" r="39" fill="url(#rg'+u+')" stroke="#000" stroke-opacity=".5"/><circle cx="180" cy="486" r="30" fill="#07090c"/>'+
+  Array.from({length:12},function(_,i){var a=i/12*6.2832;return '<rect x="'+(180+Math.cos(a)*22-2.5).toFixed(1)+'" y="'+(486+Math.sin(a)*22-2.5).toFixed(1)+'" width="5" height="5" rx="1.2" fill="'+PLAT+'"/>'}).join("")+
+  '<circle cx="180" cy="486" r="9" fill="none" stroke="'+PLAT+'" stroke-opacity=".5"/></g>'+
+  '<g fill="'+(light?"#2b2f35":"#C2C7CD")+'" fill-opacity=".62" font-family="Hanken Grotesk,Arial,sans-serif" font-size="8" letter-spacing="3"><text x="258" y="536">SENVA V1</text><text x="258" y="550">Nº 0001 · '+ed.id.toUpperCase()+'</text><text x="258" y="566" font-family="PingFang SC,Noto Sans SC,sans-serif" letter-spacing="4">深维 · SHENZHEN</text></g>'+
+  '</svg>';
+ return s}
+
+/* ---------- loader & hero ---------- */
+var hp=$("#hprod");hp.innerHTML=v1("front",EDS[0]);
+function startHero(){$("#hero").classList.add("go")}
+if(RM){$("#loader").classList.add("done");startHero()}else{setTimeout(function(){$("#loader").classList.add("done");setTimeout(startHero,350)},2300)}
+$("#hstage").addEventListener("pointermove",function(e){var r=this.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*2-1,y=(e.clientY-r.top)/r.height*2-1;hp.style.transform="rotateY("+(x*14)+"deg) rotateX("+(-y*9)+"deg)"});
+$("#hstage").addEventListener("pointerleave",function(){hp.style.transform=""});
+
+/* ---------- scenes (documentary-style conceptual imagery) ---------- */
+function lg(id,stops,y2){return '<linearGradient id="'+id+'" x1="0" y1="0" x2="0" y2="'+(y2===undefined?1:y2)+'">'+stops.map(function(s){return '<stop offset="'+s[0]+'" stop-color="'+s[1]+'"'+(s[2]!==undefined?' stop-opacity="'+s[2]+'"':'')+'/>'}).join("")+'</linearGradient>'}
+function gear(cx,cy,ro,ri,t){var d="",st=6.2832/t;for(var i=0;i<t;i++){var a=i*st,q=st/4;[[a-q*1.3,ri],[a-q*.7,ro],[a+q*.7,ro],[a+q*1.3,ri]].forEach(function(s,j){d+=(i===0&&j===0?"M":"L")+(cx+Math.cos(s[0])*s[1]).toFixed(1)+" "+(cy+Math.sin(s[0])*s[1]).toFixed(1)+" "})}return d+"Z"}
+var SC={
+architect:function(){var o='<defs>'+lg("a1",[[0,"#1d1823"],[1,"#0c0e12"]])+lg("a2",[[0,ICE,.55],[1,ICE,0]])+lg("a3",[[0,"#3a2c3b"],[1,"#0c0e12"]])+'</defs><rect width="1600" height="1000" fill="url(#a1)"/>';
+ for(var i=0;i<15;i++){var x=-200+i*130,k=1-Math.abs(i-7)/8;o+='<path d="M'+x+' 1000C'+(x+40)+' 560 '+(800+(x-800)*.35)+' 220 '+(800+(x-800)*.12)+' 40" fill="none" stroke="'+PLAT+'" stroke-opacity="'+(.07+k*.2).toFixed(2)+'" stroke-width="'+(2+k*5).toFixed(1)+'"/>'}
+ for(i=0;i<8;i++)o+='<ellipse cx="800" cy="'+(120+i*70)+'" rx="'+(90+i*95)+'" ry="'+(20+i*22)+'" fill="none" stroke="'+PORC+'" stroke-opacity="'+(.04+i*.01).toFixed(3)+'"/>';
+ return o+'<polygon points="1120,0 1600,0 1600,640 1000,760" fill="url(#a2)" opacity=".45"/><polygon points="1260,0 1420,0 1180,820 960,800" fill="url(#a2)" opacity=".3"/><rect y="760" width="1600" height="240" fill="url(#a3)"/><polygon points="1000,760 1180,820 1500,1000 1000,1000" fill="'+ICE+'" opacity=".16"/><g transform="translate(560 770)" fill="#06070a"><circle cy="-196" r="15"/><path d="M-26 -172Q0 -188 26 -172L36 0L-36 0Z"/><path d="M20 -150L78 -128" stroke="#06070a" stroke-width="11" stroke-linecap="round"/></g><path d="M80 -150L112 -128L80 -106L48 -128Z" transform="translate(560 770)" fill="none" stroke="'+PLAT+'" stroke-width="2"/>'},
+explorer:function(){var r=rng(11),o='<defs>'+lg("e1",[[0,"#0c0e12"],[.45,"#241c29"],[.75,"#4c2334"],[1,"#b79a9f"]])+lg("e2",[[0,"#6d5560"],[.12,"#2a2030"],[1,"#07080b"]])+'<radialGradient id="e3"><stop offset="0" stop-color="#f1eee8"/><stop offset=".25" stop-color="#d7c6cb" stop-opacity=".6"/><stop offset="1" stop-color="#b79a9f" stop-opacity="0"/></radialGradient></defs><rect width="1600" height="1000" fill="url(#e1)"/><circle cx="1050" cy="560" r="340" fill="url(#e3)"/><circle cx="1050" cy="560" r="44" fill="#f6f2ec"/><rect y="560" width="1600" height="440" fill="url(#e2)"/>';
+ for(var i=0;i<70;i++){var t=i/70,w=30+t*380*r()+10;o+='<rect x="'+(1050+(r()-.5)*120*(.3+t)-w/2).toFixed(0)+'" y="'+(560+t*360).toFixed(0)+'" width="'+w.toFixed(0)+'" height="'+(1.5+i/30).toFixed(1)+'" fill="#e8dfe0" opacity="'+(.12+r()*.5*(1-t*.5)).toFixed(2)+'"/>'}
+ return o+'<g transform="translate(330 548)" fill="#05060a"><path d="M0 0L250 0L232 22L24 22Z"/><rect x="150" y="-34" width="62" height="34"/><rect x="170" y="-62" width="26" height="28"/><rect x="110" y="-96" width="3" height="96"/><rect x="44" y="-18" width="44" height="18"/></g><path d="M0 880C220 840 400 900 640 870C900 836 1120 910 1600 860L1600 1000L0 1000Z" fill="#04050a"/><path d="M0 940C300 910 700 960 1000 930C1260 905 1450 950 1600 925L1600 1000L0 1000Z" fill="#020306"/>'},
+researcher:function(){var r=rng(7),o='<defs>'+lg("r1",[[0,"#07080c"],[.6,"#1a1522"],[1,"#3a2a3b"]])+lg("r3",[[0,"#2a2a32"],[1,"#07080b"]])+'<filter id="rb"><feGaussianBlur stdDeviation="14"/></filter></defs><rect width="1600" height="1000" fill="url(#r1)"/>';
+ for(var i=0;i<170;i++)o+='<circle cx="'+(r()*1600).toFixed(0)+'" cy="'+(r()*620).toFixed(0)+'" r="'+(r()*1.6+.3).toFixed(1)+'" fill="'+(r()>.8?ICE:PORC)+'" opacity="'+(r()*.7+.25).toFixed(2)+'"/>';
+ return o+'<ellipse cx="1180" cy="700" rx="520" ry="140" fill="'+OX+'" opacity=".5" filter="url(#rb)"/><path d="M0 760C200 700 320 780 520 720C720 660 860 760 1060 700C1260 650 1420 720 1600 680L1600 1000L0 1000Z" fill="#0a0a10"/><path d="M0 860C260 800 460 880 760 830C1060 780 1300 880 1600 820L1600 1000L0 1000Z" fill="#050509"/><g transform="translate(980 440)"><path d="M-26 74L26 74L110 -420L-110 -420Z" fill="'+ICE+'" opacity=".16"/><path d="M-210 280A210 210 0 0 1 210 280Z" fill="url(#r3)"/><path d="M-210 280A210 210 0 0 1 210 280" fill="none" stroke="'+PLAT+'" stroke-opacity=".5" stroke-width="2"/><path d="M-26 74L26 74L40 280L-40 280Z" fill="'+ICE+'" opacity=".85"/><rect x="-260" y="278" width="520" height="40" fill="#08080d"/></g><g transform="translate(360 700)" fill="#030307"><circle cy="-118" r="13"/><path d="M-18 -100Q0 -112 18 -100L26 40L-26 40Z"/><path d="M18 -90L62 -126" stroke="#030307" stroke-width="9" stroke-linecap="round"/></g>'},
+skyline:function(seed,figure){var r=rng(seed),o='<defs>'+lg("s1",[[0,"#0c0e12"],[.5,"#241c29"],[.82,"#4c2334"],[1,"#a98895"]])+lg("s2",[[0,"#4c2f40"],[.1,"#1f1826"],[1,"#07080b"]])+'</defs><rect width="1600" height="1000" fill="url(#s1)"/><circle cx="1180" cy="560" r="280" fill="#d9c3c9" opacity=".12"/>';
+ var x=-20,bl=[];while(x<1640){var w=50+r()*90,h=140+r()*380*(x>500&&x<1200?1.15:.8);bl.push([x,w,h]);x+=w+6+r()*14}
+ bl.forEach(function(b,i){var y=700-b[2];o+='<rect x="'+b[0].toFixed(0)+'" y="'+y.toFixed(0)+'" width="'+b[1].toFixed(0)+'" height="'+b[2].toFixed(0)+'" fill="'+(i%3?"#14121a":"#1b1722")+'"/>';
+  for(var wy=y+14;wy<690;wy+=22)for(var wx=b[0]+8;wx<b[0]+b[1]-8;wx+=14)if(r()>.62)o+='<rect x="'+wx.toFixed(0)+'" y="'+wy.toFixed(0)+'" width="5" height="9" fill="'+(r()>.7?ICE:PLAT)+'" opacity="'+(.25+r()*.6).toFixed(2)+'"/>'});
+ o+='<path d="M860 700V230L890 180L920 230V700Z" fill="#0f0d14"/><path d="M890 180V70" stroke="'+PLAT+'" stroke-width="3"/><circle cx="890" cy="64" r="5" fill="'+OXL+'"/>';
+ o+='<rect y="700" width="1600" height="300" fill="url(#s2)"/>';
+ for(var i=0;i<40;i++)o+='<rect x="'+(100+r()*1400).toFixed(0)+'" y="'+(710+i*7)+'" width="'+(20+r()*110).toFixed(0)+'" height="2" fill="'+PLAT+'" opacity="'+(.08+r()*.22).toFixed(2)+'"/>';
+ if(figure)o+='<rect y="820" width="1600" height="180" fill="#07080b"/><path d="M0 820H1600" stroke="'+PLAT+'" stroke-opacity=".4" stroke-width="3"/>'+Array.from({length:20},function(_,i){return '<path d="M'+(i*84)+' 820V740" stroke="'+PLAT+'" stroke-opacity=".22" stroke-width="3"/>'}).join("")+'<path d="M0 740H1600" stroke="'+PLAT+'" stroke-opacity=".3" stroke-width="3"/><g transform="translate(420 820)" fill="#030307"><circle cy="-280" r="17"/><path d="M-30 -254Q0 -270 30 -254L40 0L-40 0Z"/><path d="M22 -232L72 -196" stroke="#030307" stroke-width="12" stroke-linecap="round"/></g>';
+ return o}
+};
+function scene(el,kind,a,b){var inner=kind==="skyline"?SC.skyline(a||5,b):SC[kind]();el.innerHTML='<svg viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">'+inner+'</svg>'}
+scene($("#sAdv"),"architect");scene($("#sSz"),"skyline",9,false);scene($("#sLab"),"researcher");scene($("#sFab"),"architect");scene($("#sOwn"),"skyline",17,false);
+
+/* identities */
+var IDS=[["01","The Visionary","Someone who sees possibilities before others recognise them."],["02","The Strategist","Someone who can navigate complexity and decide with clarity."],["03","The Pioneer","Someone who extends the boundaries of what is possible."]];
+$("#ids").innerHTML=IDS.map(function(i,k){return '<button class="rv d'+k+'" aria-pressed="false"><small>'+i[0]+'</small><div><h3>'+i[1]+'</h3><p>'+i[2]+'</p></div></button>'}).join("");
+$$("#ids button").forEach(function(b){b.addEventListener("click",function(){$$("#ids button").forEach(function(x){x.classList.remove("on");x.setAttribute("aria-pressed","false")});b.classList.add("on");b.setAttribute("aria-pressed","true")})});
+
+/* ---------- Meet V1: viewer ---------- */
+var VIEWS=["front","side","back"],VN={front:"Front",side:"Profile",back:"Reverse"},vi=0,vbusy=false,activeT=null,vEd=EDS[0];
+var TOP=[
+ {id:"core",n:"01",t:"The CORE",view:"front",x:70,y:59.3,z:2.7,b:"A machined disc that seats into the body with a quarter-turn. It is the owner’s secure identity and activation component, the physical key to their private intelligence. Seating it is the SENVA ritual."},
+ {id:"mat",n:"02",t:"Materials",view:"side",x:50,y:46,z:1.5,b:"Aerospace-inspired titanium, polished black ceramic, satin-finished metal and sapphire-like transparent elements. Each surface is chosen for how it catches light, and how it will age."},
+ {id:"int",n:"03",t:"Interaction",view:"front",x:70.5,y:39.3,z:2.8,b:"One precision-machined tactile control and a single line of ambient light. Subtle haptics. No dial, no icon grid, no notification wall. The instrument speaks only when it matters."},
+ {id:"pi",n:"04",t:"Personal Intelligence",view:"front",x:35,y:53,z:2.4,b:"A secure physical interface to the owner’s private AI service. Computation and connected information are provided by that service where required. Designed to deepen with authorised context over years."},
+ {id:"sec",n:"05",t:"Security",view:"back",x:50,y:50,z:1.2,b:"Designed so the instrument is inactive without its CORE. A dedicated secure element and a seated, contact-based dock keep the owner’s identity physically in their hands."}
+];
+var vsvg=$("#vsvg"),vstage=$("#vstage"),vzoom=$("#vzoom");
+function paint(){vsvg.innerHTML=v1(VIEWS[vi],vEd);$("#vname").textContent=VN[VIEWS[vi]];$("#hots").style.display=VIEWS[vi]==="front"?"block":"none"}
+function setView(i,quick){i=(i+VIEWS.length)%VIEWS.length;if(i===vi&&!quick)return;if(vbusy)return;
+ if(quick||RM){vi=i;paint();return}vbusy=true;vsvg.classList.add("out");
+ setTimeout(function(){vi=i;paint();vsvg.classList.remove("out");vsvg.classList.add("pre");void vsvg.offsetWidth;vsvg.classList.remove("pre");setTimeout(function(){vbusy=false},380)},430)}
+function topic(id){activeT=id;var t=TOP.filter(function(x){return x.id===id})[0];
+ $$("#topics button").forEach(function(b){var on=b.dataset.id===id;b.classList.toggle("on",on);b.setAttribute("aria-pressed",on)});
+ if(!t){vstage.classList.remove("zoomed");vstage.classList.remove("fast");vzoom.style.transform="";$("#tcopy").innerHTML='<h4>Select a point of interest</h4><p>Touch the numbered points on the instrument, choose a topic, or drag to turn it.</p>';return}
+ var vv=VIEWS.indexOf(t.view);var go=function(){vstage.classList.add("zoomed");vzoom.style.transform="translate("+((50-t.x)*t.z)+"%,"+((50-t.y)*t.z)+"%) scale("+t.z+")"};
+ vstage.classList.toggle("fast",id==="pi"||id==="int");
+ $("#vct").textContent=t.t;$("#vcb").textContent=t.b.split(".")[0]+".";
+ $("#tcopy").innerHTML='<h4>'+t.n+' · '+t.t+'</h4><p>'+t.b+'</p>';
+ if(vv!==vi){vzoom.style.transform="";vstage.classList.remove("zoomed");setView(vv);setTimeout(go,RM?0:900)}else go()}
+$("#hots").innerHTML=[TOP[0],TOP[2],TOP[3]].map(function(t){return '<button class="hot" data-id="'+t.id+'" style="left:'+t.x+'%;top:'+t.y+'%" aria-label="Explore: '+t.t+'">'+t.n+'</button>'}).join("");
+$("#hots").addEventListener("click",function(e){var b=e.target.closest("button");if(b)topic(b.dataset.id)});
+$("#topics").innerHTML=TOP.map(function(t){return '<li><button data-id="'+t.id+'" aria-pressed="false"><small>'+t.n+'</small>'+t.t+'</button></li>'}).join("");
+$("#topics").addEventListener("click",function(e){var b=e.target.closest("button");if(b)topic(activeT===b.dataset.id?null:b.dataset.id)});
+$("#vprev").onclick=function(){topic(null);setView(vi-1)};$("#vnext").onclick=function(){topic(null);setView(vi+1)};
+vstage.addEventListener("keydown",function(e){if(e.key==="ArrowLeft"){topic(null);setView(vi-1)}if(e.key==="ArrowRight"){topic(null);setView(vi+1)}if(e.key==="Escape")topic(null)});
+var dx=null;vstage.addEventListener("pointerdown",function(e){if(e.target.closest("button"))return;dx=e.clientX});
+addEventListener("pointerup",function(e){if(dx===null)return;var d=e.clientX-dx;dx=null;if(Math.abs(d)>50){topic(null);setView(vi+(d<0?1:-1))}});
+paint();topic(null);
+
+/* ---------- dimensions: scroll-driven sequences ---------- */
+var DIMS=[
+ {k:"foresight",n:"01",t:"Foresight",l:"See the pattern before it is obvious.",b:"Investigate emerging patterns, compare scenarios and identify potential opportunities earlier. Built to widen your field of view. Never to predict with certainty."},
+ {k:"mastery",n:"02",t:"Mastery",l:"Deepen what you know.",b:"Personalised intelligence that helps you build expertise and move through demanding intellectual work, as scattered material resolves into structured understanding."},
+ {k:"clarity",n:"03",t:"Clarity",l:"Dense, made decisive.",b:"Advanced analysis that turns complicated information into understandable choices and well-structured reasoning, until one precise composition remains."},
+ {k:"continuity",n:"04",t:"Continuity",l:"An intelligence that grows with you.",b:"A personal intelligence designed to deepen through years of authorised information and contextual interaction, becoming more yours with time."}
+];
+var DR={};
+function sv(w,h){var s=document.createElementNS("http://www.w3.org/2000/svg","svg");s.setAttribute("viewBox","0 0 "+w+" "+h);s.setAttribute("aria-hidden","true");return s}
+function el(t,a,par){var e=document.createElementNS("http://www.w3.org/2000/svg",t);for(var k in a)e.setAttribute(k,a[k]);if(par)par.appendChild(e);return e}
+function cl(x){return Math.max(0,Math.min(1,x))}
+function ease(x){return x*x*(3-2*x)}
+var TF="Hanken Grotesk,Arial,sans-serif";
+DR.foresight=function(host){var s=sv(600,600),r=rng(3),br=[],g=el("g",{},s);
+ function grow(x,y,ang,len,d,main){if(d>3)return;var x2=x+Math.sin(ang)*len,y2=y-Math.cos(ang)*len;var path=el("path",{d:"M"+x+" "+y+"Q"+((x+x2)/2+(r()-.5)*24)+" "+((y+y2)/2)+" "+x2+" "+y2,fill:"none",stroke:main?PORC:PLAT,"stroke-opacity":main?1:.34,"stroke-width":main?2:1,pathLength:1,"stroke-dasharray":1,"stroke-dashoffset":1},g);
+  br.push({e:path,d:d,leaf:d===3,x:x2,y:y2,main:main});
+  var n=d===0?3:2;for(var i=0;i<n;i++){var a=ang+(i-(n-1)/2)*(.62-d*.1);grow(x2,y2,a,len*.72,d+1,main&&i===Math.floor(n/2))}}
+ grow(300,560,0,150,0,true);
+ var dots=br.filter(function(b){return b.leaf}).map(function(b){return el("circle",{cx:b.x,cy:b.y,r:b.main?6:3.2,fill:b.main?PORC:ICE,opacity:0},g)});
+ var lab=el("text",{x:312,y:52,fill:PORC,"fill-opacity":0,"font-size":11,"letter-spacing":4,"font-family":TF},s);lab.textContent="CONSIDERED PATH";
+ host.appendChild(s);return function(p){br.forEach(function(b){var t=cl((p-b.d*.2)/.26);b.e.setAttribute("stroke-dashoffset",1-ease(t))});dots.forEach(function(c){c.setAttribute("opacity",cl((p-.72)/.2)*(+c.getAttribute("r")>5?1:.7))});lab.setAttribute("fill-opacity",cl((p-.85)/.15)*.8)}};
+DR.mastery=function(host){var s=sv(600,600),r=rng(21),f=[],cols=8,rows=9;
+ for(var i=0;i<cols*rows;i++){var cx=i%cols,cy=Math.floor(i/cols);var tx=110+cx*54,ty=90+cy*47,w=34,h=3+((cx*7+cy*3)%4)*2.5;var sx=r()*560+20,sy=r()*560+20,sr=(r()-.5)*160,sw=10+r()*40;
+  var e=el("rect",{fill:i%11===0?OXL:PLAT,rx:1},s);f.push({e:e,tx:tx,ty:ty,w:w,h:h,sx:sx,sy:sy,sr:sr,sw:sw,o:i%11===0?1:.5})}
+ var ln=el("path",{d:"M110 70V520M110 520H540",stroke:PORC,"stroke-opacity":.5,fill:"none",pathLength:1,"stroke-dasharray":1,"stroke-dashoffset":1},s);
+ host.appendChild(s);return function(p){var t=ease(cl(p*1.15));f.forEach(function(q){var x=q.sx+(q.tx-q.sx)*t,y=q.sy+(q.ty-q.sy)*t,rot=q.sr*(1-t),w=q.sw+(q.w-q.sw)*t;q.e.setAttribute("x",-w/2);q.e.setAttribute("y",-q.h/2);q.e.setAttribute("width",w);q.e.setAttribute("height",q.h);q.e.setAttribute("transform","translate("+(x+w/2)+" "+y+") rotate("+rot+")");q.e.setAttribute("opacity",(q.o*(.45+t*.55)).toFixed(2))});ln.setAttribute("stroke-dashoffset",1-cl((p-.7)/.3))}};
+DR.clarity=function(host){var s=sv(600,600),r=rng(33),defs=el("defs",{},s),flt=el("filter",{id:"clb"},defs),bl=el("feGaussianBlur",{stdDeviation:8},flt),g=el("g",{filter:"url(#clb)"},s);
+ for(var i=0;i<170;i++){var a=r()*3.1416,cx=r()*600,cy=r()*600,len=80+r()*320;el("line",{x1:cx-Math.cos(a)*len/2,y1:cy-Math.sin(a)*len/2,x2:cx+Math.cos(a)*len/2,y2:cy+Math.sin(a)*len/2,stroke:r()>.9?OXL:PLAT,"stroke-opacity":.15+r()*.4,"stroke-width":.8},g)}
+ var fin=el("g",{opacity:0},s);el("line",{x1:90,y1:300,x2:510,y2:300,stroke:PORC,"stroke-width":1.2},fin);el("circle",{cx:380,cy:300,r:46,fill:"none",stroke:PORC,"stroke-width":1.2},fin);el("circle",{cx:380,cy:300,r:5,fill:ICE},fin);
+ var tx=el("text",{x:90,y:272,fill:PORC,"font-size":12,"letter-spacing":6,"font-family":TF},fin);tx.textContent="ONE DECISION";
+ var t2=el("text",{x:90,y:336,fill:PLAT,"fill-opacity":.7,"font-size":11,"letter-spacing":4,"font-family":TF},fin);t2.textContent="FULLY CONSIDERED";
+ host.appendChild(s);return function(p){bl.setAttribute("stdDeviation",(7*(1-ease(cl(p*1.1)))).toFixed(2));g.setAttribute("opacity",(1-cl((p-.45)/.4)).toFixed(2));fin.setAttribute("opacity",cl((p-.55)/.3).toFixed(2))}};
+DR.continuity=function(host){var s=sv(600,600),yrs=["DAY ONE","YEAR 1","YEAR 2","YEAR 4","YEAR 7","YEAR 10"],xs=[70,170,270,370,460,540];
+ el("line",{x1:50,y1:470,x2:560,y2:470,stroke:PLAT,"stroke-opacity":.4},s);var bars=[];
+ xs.forEach(function(x,i){var h=40+i*i*10+i*20;el("line",{x1:x,y1:470,x2:x,y2:478,stroke:PLAT,"stroke-opacity":.6},s);var t=el("text",{x:x,y:500,"text-anchor":"middle",fill:PLAT,"fill-opacity":.6,"font-size":9,"letter-spacing":2,"font-family":TF},s);t.textContent=yrs[i];
+  var bw=8+i*2.5,b=el("rect",{x:x-bw/2,y:470,width:bw,height:0,fill:i===5?PORC:PLAT,"fill-opacity":i===5?.9:.35},s);var d=el("circle",{cx:x,cy:470,r:3+i*1.6,fill:i===5?OXL:ICE,opacity:0},s);bars.push({b:b,d:d,h:h,i:i})});
+ var curve=el("path",{d:"M70 430Q170 410 270 360T460 230T540 120",fill:"none",stroke:PORC,"stroke-width":1.2,"stroke-opacity":.7,pathLength:1,"stroke-dasharray":1,"stroke-dashoffset":1},s);
+ host.appendChild(s);return function(p){bars.forEach(function(q){var t=ease(cl((p-q.i*.12)/.3));q.b.setAttribute("height",(q.h*t).toFixed(1));q.b.setAttribute("y",(470-q.h*t).toFixed(1));q.d.setAttribute("cy",(470-q.h*t-8).toFixed(1));q.d.setAttribute("opacity",t.toFixed(2))});curve.setAttribute("stroke-dashoffset",(1-cl(p/.9)).toFixed(3))}};
+var dimEls=[];
+$("#dims").innerHTML=DIMS.map(function(d,i){return '<div class="dim" data-i="'+i+'"><div class="in wrap"><div><span class="no">'+d.n+' / 04</span><h3>'+d.t+'</h3><p class="ed i">'+d.l+'</p><p class="ed" style="font-size:1.1rem;margin-top:20px">'+d.b+'</p></div><div class="host"></div></div></div>'}).join("")+'<div class="dimbar" id="dimbar">'+DIMS.map(function(){return '<i></i>'}).join("")+'</div>';
+$$(".dim").forEach(function(d,i){dimEls.push({root:d,upd:DR[DIMS[i].k]($(".host",d))})});
+function dimTick(){var vh=innerHeight,on=-1;dimEls.forEach(function(d,i){var r=d.root.getBoundingClientRect(),p=RM?1:cl(-r.top/Math.max(1,r.height-vh)+.05);d.upd(p);if(r.top<vh*.5&&r.bottom>vh*.5)on=i});$$("#dimbar i").forEach(function(b,i){b.classList.toggle("on",i===on)});$("#dimbar").style.opacity=on>-1?1:0}
+
+/* ---------- Intelligence demo ---------- */
+var MK=[
+ {n:"Ho Chi Minh City",x:.72,y:.46,sig:[["Manufacturing relocation inquiries are rising across the corridor","Trade corridor data · illustrative"],["Digital payments adoption continues to deepen","Regional payments index · illustrative"],["Skilled-engineer pipeline expanding","Education flows · illustrative"]],unc:["Regulatory clarity on foreign ownership","Infrastructure strain in peak season"],note:"a fast-moving corridor with strong momentum and moderate resilience"},
+ {n:"Monterrey",x:.6,y:.64,sig:[["Nearshoring commitments are concentrating in the north","Investment announcements · illustrative"],["Industrial real-estate vacancy is tightening","Property survey · illustrative"],["Cross-border logistics times are improving","Customs timing · illustrative"]],unc:["Energy and water capacity","Security perceptions among partners"],note:"an established industrial base with steady, resilient demand"},
+ {n:"Warsaw",x:.4,y:.8,sig:[["Software and services talent remains deep and affordable","Talent benchmark · illustrative"],["Public funding for applied research is increasing","Programme filings · illustrative"],["Currency exposure is moderating","FX trend · illustrative"]],unc:["Regional security sentiment","Pace of wage convergence"],note:"a resilient, lower-volatility base with moderate momentum"},
+ {n:"Dubai",x:.82,y:.72,sig:[["Capital formation for early-stage companies is accelerating","Funding flows · illustrative"],["Regulatory sandboxes are widening","Policy tracker · illustrative"],["Talent mobility is high but costly","Mobility index · illustrative"]],unc:["Dependency on a few anchor investors","Cost of retaining senior talent"],note:"a capital-rich environment with strong momentum and good resilience"},
+ {n:"Nairobi",x:.55,y:.28,sig:[["Mobile-first services are scaling quickly","Usage data · illustrative"],["Venture activity is broadening beyond fintech","Deal flow · illustrative"],["Infrastructure investment is uneven","Project pipeline · illustrative"]],unc:["Currency volatility","Depth of later-stage capital"],note:"a high-potential market with early momentum and lower resilience"}
+];
+var PA=[["Accelerate","Move early, commit fully, accept volatility."],["Partner-led","Enter through a trusted local partner, scale with them."],["Stage-gate","Enter in measured stages, each earning the next."]];
+var mi=1,pi2=1,risk=50;
+function recPath(){return risk<34?2:risk<67?1:0}
+function rLabel(){return risk<34?"Cautious":risk<67?"Measured":"Ambitious"}
+function drawMap(){var W=480,H=420,o='<svg viewBox="0 0 '+W+' '+H+'" role="group" aria-label="Opportunity field">'+
+ '<rect x="40" y="20" width="420" height="340" fill="none" stroke="'+PLAT+'" stroke-opacity=".18"/>'+[1,2,3].map(function(i){return '<line x1="'+(40+i*105)+'" y1="20" x2="'+(40+i*105)+'" y2="360" stroke="'+PLAT+'" stroke-opacity=".07"/><line x1="40" y1="'+(20+i*85)+'" x2="460" y2="'+(20+i*85)+'" stroke="'+PLAT+'" stroke-opacity=".07"/>'}).join("")+
+ '<text x="460" y="384" text-anchor="end" fill="'+PLAT+'" fill-opacity=".6" font-size="9" letter-spacing="3">MOMENTUM →</text><text transform="translate(18 20) rotate(-90)" text-anchor="end" fill="'+PLAT+'" fill-opacity=".6" font-size="9" letter-spacing="3">RESILIENCE →</text>';
+ MK.forEach(function(m,i){var x=40+m.x*420,y=360-m.y*340,on=i===mi;
+  o+='<g class="pt" data-i="'+i+'" tabindex="0" role="button" aria-label="'+m.n+'" aria-pressed="'+on+'"><circle cx="'+x+'" cy="'+y+'" r="26" fill="transparent"/>'+(on?'<circle cx="'+x+'" cy="'+y+'" r="20" fill="none" stroke="'+PORC+'" stroke-opacity=".5"/><line x1="'+x+'" y1="'+y+'" x2="'+x+'" y2="360" stroke="'+PORC+'" stroke-opacity=".25" stroke-dasharray="3 4"/>':'')+
+  '<circle class="d" cx="'+x+'" cy="'+y+'" r="'+(on?7:4.5)+'" fill="'+(on?PORC:ICE)+'"/><text x="'+(x+12)+'" y="'+(y+4)+'" fill="'+(on?PORC:PLAT)+'" fill-opacity="'+(on?1:.7)+'" font-size="'+(on?12:10)+'" letter-spacing="2">'+m.n.toUpperCase()+'</text></g>'});
+ $("#map").innerHTML=o+'</svg>';
+ $$("#map .pt").forEach(function(g){var f=function(){mi=+g.dataset.i;insRender()};g.addEventListener("click",f);g.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();f()}})})}
+function insRender(){var m=MK[mi];drawMap();$("#mk").textContent="Signals · "+m.n;
+ $("#sigs").innerHTML=m.sig.map(function(s){return '<li><i></i><div>'+s[0]+'<small>'+s[1]+'</small></div></li>'}).join("");
+ $("#uncs").innerHTML=m.unc.map(function(s){return '<li><i></i><div>'+s+'</div></li>'}).join("");
+ var rec=recPath();$("#rl").textContent=rLabel();
+ $("#paths").innerHTML=PA.map(function(p,i){return '<button data-i="'+i+'" class="'+(i===pi2?"on":"")+(i===rec?" rec":"")+'" aria-pressed="'+(i===pi2)+'"><strong>'+p[0]+'</strong><span>'+p[1]+'</span></button>'}).join("");
+ var chosen=PA[pi2][0].toLowerCase();
+ $("#syn").innerHTML=m.n+' reads as <em>'+m.note+'</em>. At '+(rLabel()==='Ambitious'?'an':'a')+' '+rLabel().toLowerCase()+' posture, the <em>'+PA[rec][0].toLowerCase()+'</em> path fits best'+(pi2===rec?'':', though you are examining <em>'+chosen+'</em>, which trades '+(pi2===0?"speed for exposure":pi2===1?"control for reach":"pace for certainty"))+'. The question that matters most: <em>'+m.unc[0].toLowerCase()+'</em>. The decision remains yours.'}
+$("#paths").addEventListener("click",function(e){var b=e.target.closest("button");if(b){pi2=+b.dataset.i;insRender()}});
+$("#risk").addEventListener("input",function(){risk=+this.value;pi2=recPath();insRender()});
+insRender();
+
+/* ---------- People ---------- */
+var PPL=[
+ {r:"The Architect",kind:"architect",cap:"Judging ambition against gravity.",st:["In a half-finished concrete hall, an architect stands in front of a structure that does not yet exist. The brief is audacious: a span that most engineers would decline.","With SENVA, she moves through hundreds of spatial and structural possibilities: light, load, cost, time. It returns the few that deserve a drawing, with the reasoning set out plainly.","The decision, as ever, is hers. What changes is how far she can see before she draws the first line."]},
+ {r:"The Explorer",kind:"explorer",cap:"Reading the water before it speaks.",st:["Dawn on a research vessel, days from any harbour. An ocean researcher watches temperature, current and light shift by the hour.","SENVA sets today’s readings against years of her own field notes and highlights what has changed since the last dive, and what is still uncertain.","She decides where to go next, and when to wait. The instrument only widens what she can know."]},
+ {r:"The Researcher",kind:"researcher",cap:"Holding years of questions at once.",st:["On a ridge above the cloud line, a scientist spends the night with a question no instrument has settled.","SENVA lays her notes beside the latest data and proposes three ways the evidence might fit together, along with what each would require to be true.","Not an answer. A sharper question, at the moment it matters. The judgment stays with her."]},
+ {r:"The Founder",kind:"skyline",cap:"Deciding well, before the market does.",st:["On a rooftop above a lit city, a founder weighs five markets and a hundred unknowns, with a decision due at dawn.","SENVA organises the signals, the uncertainties and the strategic paths, then steps back.","The call is hers: made with clarity, earlier than competitors who are still reading the same headlines."]}
+];
+$("#pp").innerHTML=PPL.map(function(p,i){return '<button class="pc rv d'+(i%4)+'" data-i="'+i+'" aria-haspopup="dialog"><div class="scene" data-k="'+p.kind+'" data-s="'+(40+i)+'"></div><div class="t"><small>Conceptual story</small><h3>'+p.r+'</h3><p>'+p.cap+'</p><span class="more">Read the story</span></div></button>'}).join("");
+$$("#pp .scene").forEach(function(e){scene(e,e.dataset.k,+e.dataset.s,e.dataset.k==="skyline")});
+var dlg=document.createElement("dialog");dlg.setAttribute("aria-labelledby","dgt");document.body.appendChild(dlg);var lastBtn=null;
+function openStory(i,btn){var p=PPL[i];lastBtn=btn;dlg.innerHTML='<button class="x" id="dx">Close ✕</button><div class="dg"><div class="scene" id="dgs"></div><div class="tx"><span class="eyebrow">Conceptual story · Fictional character</span><h3 id="dgt">'+p.r+'</h3>'+p.st.map(function(s){return '<p>'+s+'</p>'}).join("")+'<p class="sm cap">A conceptual collaboration. Not a real person, partnership or endorsement. SENVA amplifies human ability and never replaces personal judgment.</p><a class="btn" href="#access" id="dreq" style="margin-top:20px">Request Private Access</a></div></div>';
+ scene($("#dgs"),p.kind,40+i,p.kind==="skyline");dlg.showModal();document.body.classList.add("lock");$("#dx").onclick=function(){dlg.close()};$("#dreq").onclick=function(){dlg.close()}}
+dlg.addEventListener("close",function(){document.body.classList.remove("lock");if(lastBtn)lastBtn.focus()});dlg.addEventListener("click",function(e){if(e.target===dlg)dlg.close()});
+$("#pp").addEventListener("click",function(e){var b=e.target.closest(".pc");if(b)openStory(+b.dataset.i,b)});
+
+/* ---------- Atelier ---------- */
+var AF='font-family="Hanken Grotesk,Arial,sans-serif"';
+var AT=[
+ ["Material research","I","Titanium, ceramic, porcelain, platinum-toned metal and sapphire-like glass are studied side by side: how they feel, how they reflect, how they age on a wrist.",function(){var m=[["Titanium","#7d828a","#2b2e34"],["Black ceramic","#2a2d35","#06070a"],["Porcelain","#f6f3ec","#cfc9bd"],["Oxblood ceramic","#7a3450","#2a1020"],["Platinum","#eef0f2","#8b9199"],["Sapphire","#a9bccd","#2b3a4a"],["Satin steel","#cfd3d8","#6a7078"],["Graphite","#555a62","#14161a"]],o='<svg viewBox="0 0 800 600"><rect width="800" height="600" fill="#0e1015"/>';m.forEach(function(q,i){var x=60+(i%4)*180,y=90+Math.floor(i/4)*240;o+='<defs><linearGradient id="mt'+i+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="'+q[1]+'"/><stop offset="1" stop-color="'+q[2]+'"/></linearGradient></defs><rect x="'+x+'" y="'+y+'" width="150" height="170" rx="4" fill="url(#mt'+i+')" stroke="#fff" stroke-opacity=".12"/><path d="M'+x+' '+(y+30)+'L'+(x+90)+' '+y+'" stroke="#fff" stroke-opacity=".35" stroke-width="2"/><text x="'+x+'" y="'+(y+196)+'" fill="#C2C7CD" font-size="10" letter-spacing="3" '+AF+'>'+q[0].toUpperCase()+'</text>'});return o+'</svg>'}],
+ ["Advanced machining","II","A single block, a tool path, a tolerance held. The body of the instrument is cut from one piece before it is hand finished.",function(){var o='<svg viewBox="0 0 800 600"><defs><linearGradient id="bk" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9aa0a8"/><stop offset=".5" stop-color="#4d525a"/><stop offset="1" stop-color="#1e2126"/></linearGradient></defs><rect width="800" height="600" fill="#0e1015"/><rect x="140" y="90" width="520" height="420" rx="14" fill="url(#bk)"/>';
+ for(var i=0;i<14;i++)o+='<rect class="cut" x="'+(190+i*14)+'" y="'+(140+i*12)+'" width="'+(420-i*28)+'" height="'+(320-i*24)+'" rx="'+(30-i)+'" fill="none" stroke="'+ICE+'" stroke-opacity="'+(.2+i*.04).toFixed(2)+'"/>';return o+'<circle cx="400" cy="300" r="14" fill="#0e1015" stroke="'+PORC+'"/><path d="M400 300V60" stroke="'+PLAT+'" stroke-width="3"/></svg>'}],
+ ["Ceramic finishing","III","Ceramic is fired, ground and polished to a depth that reads as black glass. The step from matte to mirror is measured in microns of patience.",function(){var o='<svg viewBox="0 0 800 600"><defs>'+[0,1,2].map(function(i){return '<linearGradient id="cr'+i+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="'+["#3a3d44","#2a2d34","#171a20"][i]+'"/><stop offset=".45" stop-color="'+["#2a2d33","#1a1d23","#07080b"][i]+'"/><stop offset="1" stop-color="#050608"/></linearGradient>'}).join("")+'</defs><rect width="800" height="600" fill="#0e1015"/>';
+ [0,1,2].forEach(function(i){var x=130+i*200;o+='<rect x="'+x+'" y="130" width="150" height="340" rx="64" fill="url(#cr'+i+')" stroke="#fff" stroke-opacity=".08"/><path d="M'+(x+26)+' 200Q'+(x+30)+' 150 '+(x+80)+' 146" stroke="#fff" stroke-opacity="'+[.08,.3,.8][i]+'" stroke-width="'+(2+i*2)+'" fill="none" stroke-linecap="round"/><text x="'+(x+75)+'" y="510" text-anchor="middle" fill="#C2C7CD" font-size="10" letter-spacing="3" '+AF+'>'+["GROUND","LAPPED","MIRROR"][i]+'</text>'});return o+'</svg>'}],
+ ["Prototyping","IV","Form is argued with, not drawn once. Dozens of silhouettes are cut, worn and discarded until one remains recognisable without a logo.",function(){return '<svg viewBox="0 0 800 600"><rect width="800" height="600" fill="#14181f"/>'+Array.from({length:20},function(_,i){return '<line x1="'+(i*40)+'" y1="0" x2="'+(i*40)+'" y2="600" stroke="#fff" stroke-opacity=".04"/>'}).join("")+Array.from({length:15},function(_,i){return '<line x1="0" y1="'+(i*40)+'" x2="800" y2="'+(i*40)+'" stroke="#fff" stroke-opacity=".04"/>'}).join("")+
+ '<g transform="translate(200 -40) scale(.9)"><path class="pen" pathLength="1" d="'+FR+'" fill="none" stroke="'+PORC+'" stroke-width="1.6"/><path class="pen" pathLength="1" d="'+PL+'" fill="none" stroke="'+PLAT+'" stroke-opacity=".6" style="animation-delay:.5s"/><circle class="pen" pathLength="1" cx="420" cy="486" r="42" fill="none" stroke="'+PORC+'" style="animation-delay:1s"/><rect class="pen" pathLength="1" x="198" y="346" width="24" height="200" rx="12" fill="none" stroke="'+ICE+'" style="animation-delay:1.2s"/></g>'+
+ '<g stroke="'+PLAT+'" stroke-opacity=".6" fill="none"><path d="M120 520H640M120 512V528M640 512V528"/><path d="M700 160V520M692 160H708M692 520H708"/></g><g fill="'+PLAT+'" font-size="10" letter-spacing="3" '+AF+'><text x="560" y="442">CORE</text><text x="130" y="470">SAPPHIRE LINE</text></g></svg>'}],
+ ["Precision assembly","V","In a clean room, the instrument is built layer by layer. Frame, secure element, intelligence module, ceramic plate, sapphire-like line. Each seated and inspected.",function(){var o='<svg viewBox="0 0 800 600"><rect width="800" height="600" fill="#0e1015"/><defs><linearGradient id="al" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9aa0a8"/><stop offset="1" stop-color="#363a41"/></linearGradient></defs>';
+ var L=[["BACK PLATE","#3a3e45"],["SECURE ELEMENT",OX],["INTELLIGENCE MODULE","#23262d"],["FRAME","url(#al)"],["CERAMIC PLATE","#0b0c10"],["SAPPHIRE LINE",ICE]];
+ L.forEach(function(l,i){var y=470-i*62;o+='<g transform="translate(0 '+(y-470)+')"><path d="M400 470L560 500L400 530L240 500Z" fill="'+l[1]+'" stroke="#fff" stroke-opacity=".25" '+(i===5?'opacity=".6"':'')+'/>'+(i===2?'<path d="M340 500L400 488L460 500L400 512Z" fill="none" stroke="'+PORC+'" stroke-opacity=".5"/>':'')+'<line x1="580" y1="500" x2="640" y2="500" stroke="#C2C7CD" stroke-opacity=".4"/><text x="648" y="504" fill="#C2C7CD" font-size="9" letter-spacing="3" '+AF+'>'+l[0]+'</text></g>'});
+ return o+'<path d="M400 500V120" stroke="'+PLAT+'" stroke-opacity=".3" stroke-dasharray="4 6"/></svg>'}]
+];
+$("#atv").innerHTML=AT.map(function(a){return '<div>'+a[3]()+'</div>'}).join("");
+$("#attabs").innerHTML=AT.map(function(a,i){return '<button role="tab" data-i="'+i+'" aria-selected="false">'+a[0]+'<small>'+a[1]+'</small></button>'}).join("");
+function setAt(i){$$("#atv>div").forEach(function(d,k){d.classList.toggle("on",k===i)});$$("#attabs button").forEach(function(b,k){b.classList.toggle("on",k===i);b.setAttribute("aria-selected",k===i)});$("#atcopy").innerHTML='<p>'+AT[i][2]+'</p>'}
+$("#attabs").addEventListener("click",function(e){var b=e.target.closest("button");if(b)setAt(+b.dataset.i)});setAt(0);
+
+/* ---------- Collection ---------- */
+var ei=0,bi=0,ci=0,cview=0;
+$("#eds").innerHTML=EDS.map(function(e,i){return '<button role="tab" data-i="'+i+'" aria-selected="false"><div class="mini">'+v1("front",e)+'</div><small>SENVA V1</small><h3>'+e.id+'</h3><p>'+e.line+'</p></button>'}).join("");
+function colRender(anim){var e=EDS[ei],b=e.bands[bi],c=e.cores[ci];
+ $$("#eds button").forEach(function(x,i){x.classList.toggle("on",i===ei);x.setAttribute("aria-selected",i===ei)});
+ var html='<div class="vw"><div class="vsvg" id="cvs"></div></div><div><span class="eyebrow">SENVA V1 — '+e.id.toUpperCase()+'</span><h3 class="h">'+e.line+'</h3><p class="ed" style="font-size:1.15rem">'+e.mood+' '+e.blurb+'</p>'+
+  '<fieldset class="opts"><legend>Band material</legend><div class="sw" role="radiogroup" aria-label="Band material">'+e.bands.map(function(x,i){return '<button role="radio" aria-checked="'+(i===bi)+'" aria-label="'+x[0]+'" data-b="'+i+'" class="sq '+(i===bi?"on":"")+'" style="background:'+x[2]+'"></button>'}).join("")+'</div><div class="nm">'+b[0]+'</div></fieldset>'+
+  '<fieldset class="opts"><legend>CORE finish</legend><div class="sw" role="radiogroup" aria-label="CORE finish">'+e.cores.map(function(x,i){return '<button role="radio" aria-checked="'+(i===ci)+'" aria-label="'+x[0]+'" data-c="'+i+'" class="'+(i===ci?"on":"")+'" style="background:radial-gradient(circle at 35% 30%,#fff3,'+x[1]+' 60%)"></button>'}).join("")+'</div><div class="nm">'+c[0]+'</div></fieldset>'+
+  '<div class="vsw" role="group" aria-label="Angle">'+["Front","Profile","Reverse"].map(function(n,i){return '<button data-v="'+i+'" class="'+(i===cview?"on":"")+'" aria-pressed="'+(i===cview)+'">'+n+'</button>'}).join("")+'</div>'+
+  '<div class="row"><button class="btn" id="exp">Explore the Edition</button><button class="btn ox" id="req">Request Private Access</button></div><p class="sm" style="margin-top:20px">By private appointment only. Production is limited and every instrument is individually numbered.</p></div>';
+ var cst=$("#cst");
+ function fill(){$("#cvs").innerHTML=v1(["front","side","back"][cview],e,{band:b,core:c});
+  $$("#cst [data-b]").forEach(function(x){x.onclick=function(){bi=+x.dataset.b;colRender(false)}});$$("#cst [data-c]").forEach(function(x){x.onclick=function(){ci=+x.dataset.c;colRender(false)}});$$("#cst [data-v]").forEach(function(x){x.onclick=function(){cview=+x.dataset.v;colRender(false)}});
+  $("#exp").onclick=function(){openEd()};$("#req").onclick=function(){reqEd(e.id)}}
+ if(anim&&!RM){cst.style.transition="opacity .35s";cst.style.opacity=0;setTimeout(function(){cst.innerHTML=html;fill();cst.style.opacity=1},350)}else{cst.innerHTML=html;fill()}}
+$("#eds").addEventListener("click",function(e){var b=e.target.closest("button");if(b){ei=+b.dataset.i;bi=0;ci=0;colRender(true)}});
+function reqEd(id){$("#edition").value=id;document.getElementById("access").scrollIntoView({behavior:"smooth"});setTimeout(function(){$("#name").focus({preventScroll:true})},900)}
+var edlg=document.createElement("dialog");edlg.setAttribute("aria-labelledby","edt");document.body.appendChild(edlg);
+function openEd(){var e=EDS[ei],b=e.bands[bi],c=e.cores[ci];edlg.innerHTML='<button class="x" id="ex">Close ✕</button><div class="dg"><div style="padding:30px;background:radial-gradient(circle at 50% 40%,#33293a,#15121a 70%);display:flex;align-items:center"><div class="vsvg" style="width:100%">'+v1("front",e,{band:b,core:c})+'</div></div><div class="tx"><span class="eyebrow">SENVA V1 — '+e.id.toUpperCase()+'</span><h3 id="edt">'+e.line+'</h3><table>'+e.det.map(function(d){return '<tr><td>'+d[0]+'</td><td>'+d[1]+'</td></tr>'}).join("")+'<tr><td>Band</td><td>'+b[0]+'</td></tr><tr><td>CORE finish</td><td>'+c[0]+'</td></tr></table><p class="sm">Design intent for a speculative concept. These are not certified specifications and no performance results are implied.</p><button class="btn ox" id="er" style="margin-top:20px">Request Private Access</button></div></div>';
+ edlg.showModal();document.body.classList.add("lock");$("#ex").onclick=function(){edlg.close()};$("#er").onclick=function(){edlg.close();reqEd(e.id)}}
+edlg.addEventListener("close",function(){document.body.classList.remove("lock");var b=$("#exp");if(b)b.focus()});edlg.addEventListener("click",function(e){if(e.target===edlg)edlg.close()});
+colRender(false);
+
+/* ---------- Ownership stages ---------- */
+var STG=[["01","Private Introduction","A quiet conversation, in person in Shenzhen or privately by video, to learn whether SENVA is right for you."],["02","Personal Intelligence Consultation","We listen to how you think, decide and work. Your intelligence is shaped around you."],["03","Bespoke Configuration","Edition, materials, band and CORE finish are chosen with a dedicated ownership specialist."],["04","Individual Commission","Your instrument is made and individually numbered. It is yours alone."],["05","Private Delivery","A discreet presentation, where the CORE is seated for the first time."],["06","Continuing Ownership Service","Long-term technical and physical servicing, and access to specialised, expert-led intelligence experiences."]];
+$("#stg").insertAdjacentHTML("beforeend",STG.map(function(s){return '<div class="st"><small>'+s[0]+'</small><h3>'+s[1]+'</h3><p>'+s[2]+'</p></div>'}).join(""));
+function stgTick(){var box=$("#stg").getBoundingClientRect(),vh=innerHeight,mid=vh*.55;$$(".st").forEach(function(s){var r=s.getBoundingClientRect();s.classList.toggle("on",RM||r.top<mid)});
+ var h=cl((mid-box.top)/box.height)*box.height;$("#stfill").style.height=Math.max(0,Math.min(box.height-12,h))+"px"}
+
+/* ---------- form ---------- */
+var form=$("#form");
+function val(){var e={},v=function(i){return $("#"+i).value.trim()};
+ if(v("name").length<2)e.name="Please enter your full name.";
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v("email")))e.email="Please enter a valid email address.";
+ if(v("city").length<2)e.city="Please tell us where you are based.";
+ if(v("role").length<2)e.role="Please tell us your field.";
+ if(!v("edition"))e.edition="Please choose an edition, or ask for guidance.";
+ if(!$("#consent").checked)e.consent="Please confirm that you understand this is a concept demonstration.";
+ return e}
+var FLD=["name","email","city","role","edition","consent"];
+function show(e){FLD.forEach(function(k){var x=$("#"+k),m=$("#e-"+k);m.textContent=e[k]||"";if(e[k]){x.setAttribute("aria-invalid","true");x.setAttribute("aria-describedby","e-"+k)}else{x.removeAttribute("aria-invalid");x.removeAttribute("aria-describedby")}})}
+form.addEventListener("input",function(){if(form.dataset.tried)show(val())});
+form.addEventListener("change",function(){if(form.dataset.tried)show(val())});
+form.addEventListener("submit",function(ev){ev.preventDefault();form.dataset.tried=1;var e=val();show(e);var k=Object.keys(e)[0];if(k){$("#"+k).focus();return}
+ /* demonstration only: nothing is transmitted or stored */
+ var ref="SNV-"+Math.random().toString(36).slice(2,8).toUpperCase();
+ $("#doneH").textContent="Thank you, "+$("#name").value.trim().split(" ")[0]+".";
+ $("#doneP").textContent="In a real house, an ownership specialist would now write to you personally about "+($("#edition").value==="I would like guidance"?"the instrument":"the "+$("#edition").value+" edition")+". Here, the story pauses: no message was sent and nothing left your browser.";
+ $("#doneRef").textContent="Reference · "+ref+" (demonstration)";form.style.display="none";$("#done").style.display="block";$("#doneH").focus()});
+$("#again").onclick=function(){form.reset();delete form.dataset.tried;show({});$("#done").style.display="none";form.style.display="grid"};
+
+/* final product */
+$("#fp").innerHTML=v1("front",EDS[2]);
+
+/* ---------- parallax, reveal, nav ---------- */
+var scenes=$$(".scene svg");
+function par(){if(RM)return;var vh=innerHeight;scenes.forEach(function(s){var r=s.parentNode.getBoundingClientRect();if(r.bottom<-80||r.top>vh+80)return;var k=(r.top+r.height/2-vh/2)/vh;s.style.transform="translateY("+(k*-44).toFixed(1)+"px)"})}
+var tk=false;function onS(){if(tk)return;tk=true;requestAnimationFrame(function(){tk=false;$("#hd").classList.toggle("s",scrollY>60);par();dimTick();stgTick();if(scrollY<innerHeight&&!RM)$("#hstage").style.transform="translateY("+(scrollY*.12).toFixed(1)+"px)"})}
+addEventListener("scroll",onS,{passive:true});addEventListener("resize",onS);onS();
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{rootMargin:"0px 0px -8% 0px",threshold:.05});
+$$(".rv,#final h2").forEach(function(x){io.observe(x)});
+$$("h2.h").forEach(function(x){io.observe(x)});
+var links=$$("nav a"),sec=["instrument","people","atelier","collection","house","ownership"].map(function(i){return document.getElementById(i)});
+var so=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)links.forEach(function(a){a.classList.toggle("on",a.getAttribute("href")==="#"+e.target.id)})})},{rootMargin:"-45% 0px -50% 0px"});sec.forEach(function(s){so.observe(s)});
+var bg=$("#burger"),mn=$("#menu");function menu(o){mn.classList.toggle("open",o);bg.classList.toggle("x",o);bg.setAttribute("aria-expanded",o);document.body.classList.toggle("lock",o)}
+bg.onclick=function(){menu(!mn.classList.contains("open"))};$$("a",mn).forEach(function(a){a.onclick=function(){menu(false)}});addEventListener("keydown",function(e){if(e.key==="Escape")menu(false)});
+})();
+</script>
+</body>
+</html>

@@ -1,36 +1,31 @@
-# VÉRAN — Beyond Intelligence.
+# SENVA 深维 — Own the Edge.
 
-A speculative luxury brand website for a design school project: a fictional Geneva house making
-ultra-luxury personal AI instruments (**VÉRAN ONE**). Everything is concept: the brand, founders,
-product, stories and form are invented, and no backend exists.
+A speculative luxury brand website for a graduate design project: **SENVA**, a fictional Shenzhen house
+for ultra-luxury personal intelligence instruments, and its flagship **SENVA V1**. Everything here
+(brand, founders, product, people, atelier, data) is invented. There is no backend.
 
-**Stack:** Next.js 14 (App Router) · React 18 · Tailwind CSS 3 · Framer Motion 11 · TypeScript
+## Open it
 
-## Run
+No install needed. Double-click **`index.html`** (any modern browser). Fonts load from Google Fonts when online and
+fall back to system fonts offline.
 
-```bash
-npm install
-npm run dev     # http://localhost:3000
-npm run build   # production build
-npm run lint    # type-check
-```
+## What is inside (single file: `index.html`)
 
-## Structure
-
-- `app/` — layout (Cormorant Garamond + Jost via `next/font`), global styles, page
-- `components/Watch.tsx` — the VÉRAN ONE rendered as parametric SVG (three editions, live clock,
-  turnable crown, AI aperture, sapphire sheen)
-- `components/TiltWatch.tsx` — pointer-driven 3D tilt
-- `components/Scene.tsx` — generated editorial scenes (observatory, ocean, architecture, mountains,
-  Geneva, workshop)
-- `components/*` — one file per section (Hero, Instrument, Exploration, Pillars, Making, Collection,
-  House, Ownership + appointment form, Footer)
-- `lib/data.ts` — all copy and edition data
+- Custom loader and geometric SENVA wordmark, cinematic hero (V1 emerging from darkness)
+- The Advantage of Ownership, Visionary / Strategist / Pioneer identities
+- Meet SENVA V1: simulated multi-angle viewer (front / profile / reverse, drag or arrow keys) with
+  hotspots and zoom for CORE, Materials, Interaction, Personal Intelligence, Security
+- The Four Dimensions: scroll-driven sequences (Foresight, Mastery, Clarity, Continuity)
+- Conceptual private-intelligence demonstration (illustrative data, not a predictive system)
+- Four conceptual people stories with detail dialogs, the Atelier, the Collection (Obsidian / Platinum / Oxblood
+  with band and CORE material selection and a detail view), The House, six-stage ownership journey
+- Private-access form with client-side validation and a clearly labelled demonstration state (nothing is sent)
+- Responsive, keyboard accessible, `prefers-reduced-motion` supported
 
 ## Notes
 
-- Imagery is generated vector art with grain and vignette, not photography. Replace `Scene` with
-  `next/image` photography when licensed assets are available.
-- Product details are labelled design intent; no certified specifications, testimonials or
-  partnerships are implied.
-- The appointment form validates in the browser and shows a demo confirmation; nothing is sent.
+- Imagery and the product are generated vector art, not photography or a 3D model.
+- The brief named React/Next.js/Tailwind/Framer Motion/Three.js; this build is deliberately dependency-free
+  vanilla HTML/CSS/JS so it runs with no installation.
+- Product details are design intent only. No certified specifications, endorsements, facilities or
+  awards are implied.
