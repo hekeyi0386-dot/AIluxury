@@ -56,15 +56,15 @@ header{position:fixed;inset:0 0 auto;z-index:60;padding:24px 0;transition:backgr
 header.s{background:rgba(28,21,35,.86);backdrop-filter:blur(14px);padding:14px 0;border-bottom:1px solid rgba(194,199,205,.12)}
 header .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px}
 .logo{display:flex;align-items:center;gap:14px;white-space:nowrap;flex:none}.logo svg{height:15px;width:auto;display:block}.logo .cjk{font-size:.7rem;color:var(--plat);letter-spacing:.35em}
-nav ul{display:flex;gap:clamp(14px,1.7vw,26px);list-style:none;flex-wrap:nowrap}
-nav a{white-space:nowrap;font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:rgba(241,238,232,.7);padding:6px 0;border-bottom:1px solid transparent;transition:.4s}
+nav ul{display:flex;gap:clamp(12px,1.35vw,22px);list-style:none;flex-wrap:nowrap}
+nav a{white-space:nowrap;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(241,238,232,.7);padding:6px 0;border-bottom:1px solid transparent;transition:.4s}
 nav a:hover,nav a.on{color:var(--porc);border-color:var(--oxl)}
 .hcta{flex:none;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;border:1px solid rgba(194,199,205,.5);padding:11px 18px;transition:.4s;white-space:nowrap}.hcta:hover{background:var(--porc);color:var(--obs)}
 .burger{display:none;width:44px;height:44px;position:relative}.burger i{position:absolute;left:8px;right:8px;height:1px;background:var(--porc);transition:.4s}
 .burger i:nth-child(1){top:18px}.burger i:nth-child(2){top:26px}.burger.x i:nth-child(1){top:22px;transform:rotate(45deg)}.burger.x i:nth-child(2){top:22px;transform:rotate(-45deg)}
 .menu{position:fixed;inset:0;z-index:55;background:var(--plum);display:flex;flex-direction:column;justify-content:center;gap:16px;padding:32px;opacity:0;pointer-events:none;transition:.5s}
 .menu.open{opacity:1;pointer-events:auto}.menu a{font-weight:200;font-size:2.1rem;text-transform:uppercase;letter-spacing:.04em}
-@media(max-width:1440px){nav ul,.hcta{display:none}.burger{display:block}}
+@media(max-width:1560px){nav ul,.hcta{display:none}.burger{display:block}}
 /* hero */
 #top{min-height:min(100svh,1050px);display:flex;align-items:center;overflow:hidden;padding:0;
 background:radial-gradient(ellipse 50% 60% at 68% 52%,rgba(76,35,52,.55),rgba(36,28,41,.5) 45%,var(--obs) 78%)}
@@ -338,6 +338,30 @@ footer{background:var(--obs);border-top:1px solid rgba(194,199,205,.14);padding:
 .cbar{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;margin-top:1px;background:linear-gradient(135deg,#34202c,#241c29 60%);padding:clamp(20px,3vw,44px)}
 @media(max-width:900px){.env{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.tp{filter:none;opacity:1}.tn,.tdot{opacity:1}.thread path{stroke-dashoffset:0}}
+
+/* ===== founder ===== */
+#founder{background:linear-gradient(180deg,var(--obs),#2c1a2a 52%,var(--obs))}
+.fd{display:grid;grid-template-columns:5fr 6fr;gap:clamp(30px,6vw,110px);margin-top:clamp(50px,7vw,100px);align-items:start}
+.fport{position:relative;aspect-ratio:4/5;position:sticky;top:96px}
+.fport .scene{position:absolute;inset:0;border:1px solid rgba(194,199,205,.14)}
+.fplate{position:absolute;left:0;right:0;bottom:0;z-index:5;padding:clamp(16px,2vw,26px);background:linear-gradient(to top,rgba(28,21,35,.95),transparent);display:flex;flex-direction:column;gap:3px}
+.fplate b{font-weight:200;text-transform:uppercase;letter-spacing:.16em;font-size:clamp(1.1rem,1.8vw,1.5rem)}
+.fplate span{font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--plat)}
+.fstory p{font-family:var(--serif);font-size:clamp(1.15rem,1.5vw,1.35rem);line-height:1.6;color:rgba(241,238,232,.82);margin-bottom:26px}
+.fstory p em{color:var(--porc)}
+.fquote{margin:clamp(34px,5vw,64px) 0;padding-left:clamp(18px,2.4vw,34px);border-left:2px solid var(--oxl)}
+.fquote p{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(1.7rem,3.2vw,2.9rem);line-height:1.2;color:var(--porc);margin:0}
+.fquote footer{background:none;border:0;padding:0;margin-top:18px;font-size:.64rem;letter-spacing:.3em;text-transform:uppercase;color:var(--plat)}
+.qw span{display:inline-block;opacity:0;transform:translateY(.45em);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1);transition-delay:calc(var(--i)*55ms)}
+.qw.in span{opacity:1;transform:none}
+.fmeta{display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:1px;background:rgba(194,199,205,.16)}
+.fmeta div{background:var(--obs);padding:16px}.fmeta dt{font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--oxl)}.fmeta dd{font-size:.86rem;margin-top:6px;color:rgba(241,238,232,.8)}
+.fdisc{display:grid;grid-template-columns:2fr 1fr 1fr;gap:clamp(10px,1.4vw,20px);margin-top:clamp(70px,9vw,130px)}
+.fdisc figure .scene{aspect-ratio:4/3;width:100%}.fdisc figure:first-child .scene{aspect-ratio:auto;height:100%;min-height:260px}
+.fdisc figure{display:flex;flex-direction:column;gap:12px}.fdisc figure:first-child .scene{flex:1}
+.fdisc figcaption{font-size:.84rem;color:rgba(241,238,232,.62);line-height:1.5}.fdisc figcaption b{display:block;font-weight:400;font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--plat);margin-bottom:4px}
+@media(max-width:900px){.fd{grid-template-columns:1fr}.fport{position:relative;top:0}.fdisc{grid-template-columns:1fr 1fr}.fdisc figure:first-child{grid-column:1/-1}.fdisc figure:first-child .scene{aspect-ratio:16/9;height:auto}.fmeta{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.qw span{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -352,13 +376,13 @@ footer{background:var(--obs);border-top:1px solid rgba(194,199,205,.14);padding:
   <a class="logo" href="#top" aria-label="SENVA 深维 — home"><span id="logoMark"></span><span class="cjk">深维</span></a>
   <nav aria-label="Primary"><ul>
     <li><a href="#ecosystem">The Ecosystem</a></li><li><a href="#concierge">Concierge</a></li><li><a href="#people">The People</a></li><li><a href="#atelier">Craftsmanship</a></li>
-    <li><a href="#collection">Environments</a></li><li><a href="#house">The House</a></li><li><a href="#ownership">Ownership</a></li>
+    <li><a href="#collection">Environments</a></li><li><a href="#house">The House</a></li><li><a href="#founder">Our Founder</a></li><li><a href="#ownership">Ownership</a></li>
   </ul></nav>
   <a class="hcta" href="#access">Request Private Access</a>
   <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><i></i><i></i></button>
 </div></header>
 <div class="menu" id="menu">
-  <a href="#ecosystem">The Ecosystem</a><a href="#concierge">Concierge</a><a href="#people">The People</a><a href="#atelier">Craftsmanship</a><a href="#collection">Environments</a><a href="#house">The House</a><a href="#ownership">Private Ownership</a><a href="#access">Request Private Access</a>
+  <a href="#ecosystem">The Ecosystem</a><a href="#concierge">Concierge</a><a href="#people">The People</a><a href="#atelier">Craftsmanship</a><a href="#collection">Environments</a><a href="#house">The House</a><a href="#founder">Our Founder</a><a href="#ownership">Private Ownership</a><a href="#access">Request Private Access</a>
 </div>
 
 <main id="main">
@@ -538,7 +562,7 @@ footer{background:var(--obs);border-top:1px solid rgba(194,199,205,.14);padding:
     <div><div class="scene big" id="sSz"></div><div class="pair"><div class="scene" id="sLab"></div><div class="scene" id="sFab"></div></div><p class="sm" style="margin-top:14px">Conceptual editorial imagery of Shenzhen, material research and fabrication.</p></div>
     <div class="t">
       <p class="q rv">The future of luxury is not simply what you own. It is what ownership enables you to become.</p>
-      <p class="rv">SENVA was founded in Shenzhen in 2026 by an industrial designer and an AI systems researcher. Both saw the same problem: as intelligent tools became ordinary, they stopped feeling exceptional.</p>
+      <p class="rv">SENVA was founded in Shenzhen in 2026 by <a href="#founder" style="border-bottom:1px solid var(--ox)">Adrian Chen</a>, together with an industrial designer and an AI systems researcher. All three saw the same problem: as intelligent tools became ordinary, they stopped feeling exceptional.</p>
       <p class="rv">They imagined a different relationship. Not another subscription, application or convenience, but a deeply personal, meticulously crafted instrument of advancement, through which a person could cultivate foresight, judgment and mastery.</p>
       <p class="rv">Inspired by Shenzhen’s extraordinary ability to turn ambitious ideas into precisely engineered objects, they built a house dedicated to personal intelligence instruments for an exclusive clientele.</p>
       <div class="trt rv"><div><h3>The Designer</h3><p>Industrial designer. Believes an object should carry an idea.</p></div><div><h3>The Researcher</h3><p>AI systems researcher. Believes intelligence should be personal.</p></div></div>
@@ -546,6 +570,29 @@ footer{background:var(--obs);border-top:1px solid rgba(194,199,205,.14);padding:
     </div>
   </div>
   <div class="facts"><div class="rv"><h3>Prestige from the future</h3><p>Traditional luxury celebrates heritage. SENVA celebrates advancement.</p></div><div class="rv d1"><h3>Shenzhen</h3><p>Hardware invention, intelligent systems, engineering experiment and speed.</p></div><div class="rv d2"><h3>Confidently contemporary</h3><p>Chinese in origin, global in outlook, with no borrowed history.</p></div></div>
+</div></section>
+
+<!-- 8b OUR FOUNDER -->
+<section id="founder"><div class="wrap">
+  <span class="eyebrow rv">Our Founder · Adrian Chen <span class="cjk" style="letter-spacing:.3em">陈奕衡</span></span>
+  <h2 class="h" aria-label="He saw what others overlooked."><span class="mask"><span>He saw what</span></span><span class="mask"><span>others <em>overlooked.</em></span></span></h2>
+  <div class="fd">
+    <figure class="fport rv"><div class="scene" id="sFounder"></div>
+      <figcaption class="fplate"><b>Adrian Chen <span class="cjk" style="letter-spacing:.2em">陈奕衡</span></b><span>Founder of SENVA · Age 28</span><span>Shenzhen, China · Established 2026</span></figcaption></figure>
+    <div class="fstory">
+      <p class="rv">In 2026, artificial intelligence was becoming accessible to everyone. Yet most of it stayed confined to apps, chat windows and individual devices, asking people to keep managing, and adapting to, the technology.</p>
+      <p class="rv">Adrian Chen, a young Chinese entrepreneur with a background in AI and luxury hospitality, saw the limit others overlooked: <em>AI could provide intelligence, but only humans could take genuine responsibility for service.</em></p>
+      <p class="rv">He imagined a different future, with intelligence present throughout everyday life, quietly supported by dedicated human professionals. He founded SENVA in Shenzhen to build it: an exclusive ambient AI ecosystem joining advanced technology, precision craftsmanship and a 24/7 human concierge.</p>
+      <blockquote class="fquote"><p class="qw" id="fq">The future of intelligence is not something you operate. It is something that operates around you.</p><footer class="rv">Adrian Chen, Founder</footer></blockquote>
+      <dl class="fmeta rv"><div><dt>Background</dt><dd>AI · Luxury hospitality</dd></div><div><dt>Founded</dt><dd>Shenzhen, 2026</dd></div><div><dt>Conviction</dt><dd>AI provides intelligence. Humans provide accountability.</dd></div></dl>
+    </div>
+  </div>
+  <div class="fdisc">
+    <figure class="rv"><div class="scene" id="sFsz"></div><figcaption><b>Shenzhen</b>A city that turns ambition into engineered reality.</figcaption></figure>
+    <figure class="rv d1"><div class="scene" id="sFhos"></div><figcaption><b>Hospitality</b>The discipline of care.</figcaption></figure>
+    <figure class="rv d2"><div class="scene" id="sFeng"></div><figcaption><b>Engineering</b>The discipline of precision.</figcaption></figure>
+  </div>
+  <p class="sm" style="margin-top:30px">Adrian Chen is a fictional founder, created for this brand concept. His biography, background and quotation are invented and are not verified facts. Portrait and scenes are generated concept imagery.</p>
 </div></section>
 
 <!-- 9 OWNERSHIP -->
@@ -740,6 +787,30 @@ drive:function(){var r=rng(9),o='<defs>'+lg("d1",[[0,"#1c1523"],[.5,"#241c29"],[
  o+='<path d="M120 760C460 696 1140 696 1480 760" stroke="'+ICE+'" stroke-opacity=".6" stroke-width="3" fill="none"/><path d="M120 760C460 696 1140 696 1480 760" stroke="'+ICE+'" stroke-opacity=".25" stroke-width="16" fill="none" filter="url(#db)"/>';
  o+='<ellipse cx="800" cy="990" rx="360" ry="150" fill="none" stroke="#170f1d" stroke-width="42"/><path d="M470 960C560 860 1040 860 1130 960" stroke="#fff" stroke-opacity=".1" stroke-width="3" fill="none"/>';
  return o},
+founder:function(){var o=SC.skyline(23,false);
+ o+='<defs>'+lg("f1",[[0,"#3a2c3b"],[1,"#120e18"]])+'<linearGradient id="f2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3a2830"/><stop offset=".4" stop-color="#1e1419"/><stop offset="1" stop-color="#0f0a0f"/></linearGradient></defs>';
+ o+='<rect x="0" y="0" width="1600" height="90" fill="#150f1c"/><rect x="396" y="0" width="46" height="1000" fill="#150f1c"/><rect x="1230" y="0" width="46" height="1000" fill="#150f1c"/><rect x="0" y="900" width="1600" height="100" fill="#150f1c"/>';
+ o+='<path d="M560 1000C560 820 600 700 700 660L760 640H960L1020 660C1120 700 1160 820 1160 1000Z" fill="#120e18"/>';
+ o+='<path d="M760 640L860 820L960 640" fill="#1f1627" stroke="#2f2338" stroke-width="2"/><path d="M810 650L860 740L910 650Z" fill="#e9e5de" opacity=".9"/><path d="M860 740L848 790L860 820L872 790Z" fill="#4C2334"/>';
+ o+='<rect x="824" y="590" width="72" height="70" rx="20" fill="url(#f2)"/><ellipse cx="860" cy="500" rx="62" ry="78" fill="url(#f2)"/><ellipse cx="800" cy="508" rx="9" ry="17" fill="#2a1d22"/>';
+ o+='<path d="M798 470C796 410 830 392 872 396C916 400 930 440 922 476C906 440 880 430 850 436C826 440 806 452 798 470Z" fill="#0b080e"/>';
+ o+='<path d="M798 480C796 540 820 584 850 580" stroke="#C2C7CD" stroke-opacity=".6" stroke-width="3" fill="none"/><path d="M606 760C620 700 660 668 730 654" stroke="#C2C7CD" stroke-opacity=".5" stroke-width="3" fill="none"/><path d="M800 440C816 418 840 410 866 411" stroke="#91A4B8" stroke-opacity=".5" stroke-width="3" fill="none"/>';
+ return o},
+hospitality:function(){var o='<defs>'+lg("o1",[[0,"#2b2135"],[1,"#1c1523"]])+lg("o2",[[0,"#4a3347"],[1,"#1c1523"]])+'<radialGradient id="o3"><stop offset="0" stop-color="#f1eee8" stop-opacity=".85"/><stop offset="1" stop-color="#f1eee8" stop-opacity="0"/></radialGradient></defs><rect width="1600" height="1000" fill="url(#o1)"/>';
+ for(var i=0;i<7;i++){var x=240+i*190;o+='<rect x="'+x+'" y="60" width="46" height="700" fill="#150f1c"/><rect x="'+(x+8)+'" y="60" width="4" height="700" fill="#C2C7CD" opacity=".35"/>'}
+ for(i=0;i<5;i++){var px=330+i*210;o+='<line x1="'+px+'" y1="0" x2="'+px+'" y2="170" stroke="#C2C7CD" stroke-opacity=".4"/><circle cx="'+px+'" cy="190" r="70" fill="url(#o3)" opacity=".45"/><circle cx="'+px+'" cy="190" r="14" fill="#f1eee8"/>'}
+ o+='<rect y="760" width="1600" height="240" fill="url(#o2)"/><rect x="560" y="700" width="480" height="90" rx="6" fill="#120e18"/><rect x="560" y="694" width="480" height="8" fill="#C2C7CD" opacity=".45"/>';
+ o+='<polygon points="700,790 900,790 1100,1000 500,1000" fill="#8B4A63" opacity=".2"/><g transform="translate(1180 790)" fill="#0f0a14"><circle cy="-232" r="14"/><path d="M-24 -210Q0 -224 24 -210L32 0L-32 0Z"/></g>';
+ return o},
+engineering:function(){var o='<defs>'+lg("g1",[[0,"#2b2135"],[1,"#1c1523"]])+'</defs><rect width="1600" height="1000" fill="url(#g1)"/>';
+ for(var i=0;i<30;i++)o+='<line x1="'+(i*55)+'" y1="0" x2="'+(i*55)+'" y2="1000" stroke="#fff" stroke-opacity=".03"/>';
+ for(i=0;i<9;i++)o+='<circle cx="620" cy="500" r="'+(60+i*38)+'" fill="none" stroke="#91A4B8" stroke-opacity="'+(.15+i*.05).toFixed(2)+'" stroke-dasharray="'+(i%2?"8 10":"2 6")+'"/>';
+ o+='<circle cx="620" cy="500" r="40" fill="#C2C7CD" opacity=".85"/><circle cx="620" cy="500" r="12" fill="#1c1523"/>';
+ o+='<rect x="980" y="300" width="420" height="400" rx="10" fill="none" stroke="#C2C7CD" stroke-opacity=".5" stroke-width="3"/>';
+ [[1020,340,90,60],[1160,340,60,60],[1250,340,120,120],[1020,440,90,90],[1150,500,200,70]].forEach(function(q){o+='<rect x="'+q[0]+'" y="'+q[1]+'" width="'+q[2]+'" height="'+q[3]+'" rx="4" fill="#3b2d44" stroke="#C2C7CD" stroke-opacity=".35"/>'});
+ for(i=0;i<10;i++)o+='<path d="M1000 '+(580+i*10)+'H'+(1100+i*28)+'V'+(640+i*6)+'" stroke="#91A4B8" stroke-opacity=".5" fill="none"/>';
+ o+='<path d="M120 860H1480M120 850V870M1480 850V870" stroke="#C2C7CD" stroke-opacity=".5" fill="none"/>';
+ return o},
 skyline:function(seed,figure){var r=rng(seed),o='<defs>'+lg("s1",[[0,"#1c1523"],[.5,"#241c29"],[.82,"#4c2334"],[1,"#a98895"]])+lg("s2",[[0,"#4c2f40"],[.1,"#1f1826"],[1,"#1a1322"]])+'</defs><rect width="1600" height="1000" fill="url(#s1)"/><circle cx="1180" cy="560" r="280" fill="#d9c3c9" opacity=".12"/>';
  var x=-20,bl=[];while(x<1640){var w=50+r()*90,h=140+r()*380*(x>500&&x<1200?1.15:.8);bl.push([x,w,h]);x+=w+6+r()*14}
  bl.forEach(function(b,i){var y=700-b[2];o+='<rect x="'+b[0].toFixed(0)+'" y="'+y.toFixed(0)+'" width="'+b[1].toFixed(0)+'" height="'+b[2].toFixed(0)+'" fill="'+(i%3?"#14121a":"#1b1722")+'"/>';
@@ -751,7 +822,7 @@ skyline:function(seed,figure){var r=rng(seed),o='<defs>'+lg("s1",[[0,"#1c1523"],
  return o}
 };
 function scene(el,kind,a,b){var inner=kind==="skyline"?SC.skyline(a||5,b):SC[kind]();el.innerHTML='<svg viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">'+inner+'</svg>'}
-scene($("#tpH"),"home");scene($("#tpW"),"wear");scene($("#tpD"),"drive");scene($("#sAdv"),"architect");scene($("#sSz"),"skyline",9,false);scene($("#sLab"),"researcher");scene($("#sFab"),"architect");scene($("#sOwn"),"skyline",17,false);
+scene($("#sFounder"),"founder");scene($("#sFsz"),"skyline",31,false);scene($("#sFhos"),"hospitality");scene($("#sFeng"),"engineering");scene($("#tpH"),"home");scene($("#tpW"),"wear");scene($("#tpD"),"drive");scene($("#sAdv"),"architect");scene($("#sSz"),"skyline",9,false);scene($("#sLab"),"researcher");scene($("#sFab"),"architect");scene($("#sOwn"),"skyline",17,false);
 
 /* identities */
 var IDS=[["01","The Visionary","Someone who sees possibilities before others recognise them."],["02","The Strategist","Someone who can navigate complexity and decide with clarity."],["03","The Pioneer","Someone who extends the boundaries of what is possible."]];
@@ -1011,14 +1082,15 @@ $("#again").onclick=function(){form.reset();delete form.dataset.tried;show({});$
 $("#fp").innerHTML='<svg viewBox="0 0 420 120" aria-hidden="true"><defs><filter id="fb"><feGaussianBlur stdDeviation="5"/></filter></defs><path d="M60 60H360" stroke="'+ICE+'" stroke-opacity=".6" stroke-width="1.4"/><path d="M60 60H360" stroke="'+ICE+'" stroke-opacity=".3" stroke-width="10" filter="url(#fb)"/>'+[[60,"HOME"],[210,"WEAR"],[360,"DRIVE"]].map(function(n){return '<circle cx="'+n[0]+'" cy="60" r="9" fill="'+PORC+'"/><circle cx="'+n[0]+'" cy="60" r="20" fill="none" stroke="'+PORC+'" stroke-opacity=".4"/><text x="'+n[0]+'" y="108" text-anchor="middle" fill="'+PLAT+'" font-size="9" letter-spacing="4">'+n[1]+'</text>'}).join("")+'</svg>';
 
 /* ---------- parallax, reveal, nav ---------- */
+(function(){var q=$("#fq");q.setAttribute("aria-label",q.textContent);q.innerHTML=q.textContent.split(" ").map(function(w,i){return '<span aria-hidden="true" style="--i:'+i+'">'+w+"&nbsp;</span>"}).join("")})();
 var scenes=$$(".scene svg");
 function par(){if(RM)return;var vh=innerHeight;scenes.forEach(function(s){var r=s.parentNode.getBoundingClientRect();if(r.bottom<-80||r.top>vh+80)return;var k=(r.top+r.height/2-vh/2)/vh;s.style.transform="translateY("+(k*-44).toFixed(1)+"px)"})}
 var tk=false;function onS(){if(tk)return;tk=true;requestAnimationFrame(function(){tk=false;$("#hd").classList.toggle("s",scrollY>60);par();dimTick();stgTick();if(scrollY<innerHeight&&!RM)$("#trip").style.transform="translateY("+(scrollY*.05).toFixed(1)+"px)"})}
 addEventListener("scroll",onS,{passive:true});addEventListener("resize",onS);onS();
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{rootMargin:"0px 0px -8% 0px",threshold:.05});
-$$(".rv,#final h2").forEach(function(x){io.observe(x)});
+$$(".rv,#final h2,.qw").forEach(function(x){io.observe(x)});
 $$("h2.h").forEach(function(x){io.observe(x)});
-var links=$$("nav a"),sec=["ecosystem","concierge","wear","people","atelier","collection","house","ownership"].map(function(i){return document.getElementById(i)});
+var links=$$("nav a"),sec=["ecosystem","concierge","wear","people","atelier","collection","house","founder","ownership"].map(function(i){return document.getElementById(i)});
 var so=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)links.forEach(function(a){a.classList.toggle("on",a.getAttribute("href")==="#"+e.target.id)})})},{rootMargin:"-45% 0px -50% 0px"});sec.forEach(function(s){so.observe(s)});
 var bg=$("#burger"),mn=$("#menu");function menu(o){mn.classList.toggle("open",o);bg.classList.toggle("x",o);bg.setAttribute("aria-expanded",o);document.body.classList.toggle("lock",o)}
 bg.onclick=function(){menu(!mn.classList.contains("open"))};$$("a",mn).forEach(function(a){a.onclick=function(){menu(false)}});addEventListener("keydown",function(e){if(e.key==="Escape")menu(false)});
